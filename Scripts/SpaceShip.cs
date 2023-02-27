@@ -324,7 +324,7 @@ namespace CosmoSimClone
 
         public void Use(EnemyAsset asset)
         {
-            m_MaxLinearVelocity = asset.moveSpeed;
+            m_MaxLinearVelocity = asset.MoveSpeed;
             base.Use(asset);
         }
     }

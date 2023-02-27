@@ -15,10 +15,11 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   spriteScale: {x: 4, y: 4}
   animations: {fileID: 9100000, guid: 0d63b3676f5f42b4e977d6d3cf798c1f, type: 2}
-  moveSpeed: 1
-  radius: 0.38
-  healthPoints: 15
-  shieldPoints: 0
-  armorPoints: 0
-  armorResitance: 0
-  score: 30
+  MoveSpeed: 1
+  Radius: 0.38
+  HealthPoints: 1
+  ShieldPoints: 1
+  ArmorPoints: 1
+  ArmorResitance: 1
+  Score: 1
+  Damage: 1

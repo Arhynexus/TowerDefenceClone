@@ -161,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145921032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.27, y: -1.54, z: -0.7220439}
+  m_LocalPosition: {x: 1.72, y: 1.96, z: -0.7220439}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -283,11 +283,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpawnMode: 1
   m_CircleArea: {fileID: 767251794}
-  m_NumSpawns: 3
+  m_NumSpawns: 1
   m_RespawnTime: 3
   m_EnemyPrefab: {fileID: 4303154712518927467, guid: 76bdb6d91fed0cd439ddda89559f9673, type: 3}
   m_EnemyAssets:
-  - {fileID: 11400000, guid: f62a18ad98495e3409ef42ec6231cfbd, type: 2}
+  - {fileID: 11400000, guid: fbe396daf901ffc48a8b297d92ffc995, type: 2}
   m_Path: {fileID: 1106039473}
 --- !u!1 &396396199
 GameObject:
@@ -298,6 +298,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 396396200}
+  - component: {fileID: 396396201}
   m_Layer: 0
   m_Name: PlayerCamp
   m_TagString: Untagged
@@ -322,6 +323,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &396396201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396396199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297da8096ffe86f4db19414fc55e08a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DoNotDestroyOnLoad: 0
+  m_Lives: 30
+  m_ShipPrefab: {fileID: 0}
+  m_SpawnPoint: {fileID: 0}
+  m_Gold: 0
 --- !u!1 &452807167
 GameObject:
   m_ObjectHideFlags: 0

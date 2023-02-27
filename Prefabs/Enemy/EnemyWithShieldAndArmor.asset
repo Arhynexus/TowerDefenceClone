@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: EnemyWithShieldAndArmor
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  spriteScale: {x: 2, y: 2}
-  animations: {fileID: 9100000, guid: e1b2eacc8a7242f40bbeada50e9d51dd, type: 2}
-  moveSpeed: 1
-  radius: 0.19
-  healthPoints: 5
-  shieldPoints: 5
-  armorPoints: 5
-  armorResitance: 30
-  score: 10
+  spriteScale: {x: 5, y: 5}
+  animations: {fileID: 9100000, guid: 0d63b3676f5f42b4e977d6d3cf798c1f, type: 2}
+  MoveSpeed: 1
+  Radius: 0.47
+  HealthPoints: 10
+  ShieldPoints: 10
+  ArmorPoints: 10
+  ArmorResitance: 30
+  Score: 1
+  Damage: 2
+  Gold: 2

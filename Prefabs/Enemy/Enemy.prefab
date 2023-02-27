@@ -195,7 +195,19 @@ MonoBehaviour:
   m_TeamId: 0
   m_EventOnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4303154712518927467}
+        m_TargetAssemblyTypeName: TowerDefenceClone.Enemy, Assembly-CSharp
+        m_MethodName: GiveGold
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Mass: 1
   m_Thrust: 1000
   m_Mobility: 1000
@@ -231,6 +243,21 @@ MonoBehaviour:
   stepLength: 0
   m_PointsOfRoutePatrol: []
   m_Targeter: {fileID: 1852975097032133061}
+  m_OnPathEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4303154712518927467}
+        m_TargetAssemblyTypeName: TowerDefenceClone.Enemy, Assembly-CSharp
+        m_MethodName: DamagePlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4303154712518927467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e9ee5ffdc62bb478d0740213de5368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Damage: 1
+  m_Gold: 1
 --- !u!1 &7960997925632780927
 GameObject:
   m_ObjectHideFlags: 0

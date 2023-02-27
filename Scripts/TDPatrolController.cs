@@ -1,5 +1,6 @@
 using CosmoSimClone;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TowerDefenceClone
 {
@@ -10,6 +11,7 @@ namespace TowerDefenceClone
     {
         private Path m_Path;
         private int m_PathIndex;
+        [SerializeField] private UnityEvent m_OnPathEnd;
         
         public void SetPath(Path newPath)
         {
@@ -28,6 +30,7 @@ namespace TowerDefenceClone
             }
             else
             {
+                m_OnPathEnd.Invoke();
                 Destroy(gameObject);
             }
         }
