@@ -15,6 +15,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   spriteScale: {x: 2, y: 2}
   animations: {fileID: 9100000, guid: e1b2eacc8a7242f40bbeada50e9d51dd, type: 2}
+<<<<<<< HEAD
   moveSpeed: 2
   radius: 0.19
   healthPoints: 5
@@ -22,3 +23,13 @@ MonoBehaviour:
   armorPoints: 0
   armorResitance: 0
   score: 10
+=======
+  MoveSpeed: 2
+  Radius: 0.19
+  HealthPoints: 1
+  ShieldPoints: 1
+  ArmorPoints: 1
+  ArmorResitance: 1
+  Score: 1
+  Damage: 1
+>>>>>>> parent of 3a08899 (Reorganize files)
