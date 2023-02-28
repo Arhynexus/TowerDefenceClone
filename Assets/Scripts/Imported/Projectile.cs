@@ -49,7 +49,7 @@ namespace CosmoSimClone
                 }
                 OnProjectileLifeEnd(hit.collider, hit.point);
             }
-            transform.position += new Vector3(step.x,step.y, 0);
+            //transform.position += new Vector3(step.x,step.y, 0);
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D collision) { }
@@ -82,23 +82,11 @@ namespace CosmoSimClone
         }
 
 
-        //void FixedUpdate()
-        //{
-        //    transform.position += transform.up * m_Velocity * Time.deltaTime;
-        //}
+        void FixedUpdate()
+        {
+            transform.position += transform.up * m_Velocity * Time.fixedDeltaTime;
+        }
 
-
-        // private void OnTriggerEnter2D(Collider2D collision)
-        // {
-        //     if (collision.gameObject.GetComponentInChildren<Destructible>() == true)
-        //     {
-        //
-        //         //Destroy(gameObject);
-        //
-        //     }
-        //     //Instantiate(gotHitParticles, transform.position, Quaternion.identity);
-        //     Debug.Log("Stone detected");
-        // }
 
     }
 }

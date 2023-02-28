@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,10 @@ namespace CosmoSimClone
 
         private void Start()
         {
-            Respawn();
+            if(m_Ship)
+            {
+                Respawn();
+            }
         }
 
         private void OnShipDeath()
@@ -63,7 +67,15 @@ namespace CosmoSimClone
                 //hudUI.SetActiveShip();
             }
         }
+
+        public void TakeDamage(int damage)
+        {
+            m_Lives -= damage;
+            if (m_Lives <= 0)
+            {
+                m_Lives = 0;
+                //LevelSequenceController.Instance.FinishCurrentLevel(false);
+            }
+        }
     }
 }
-
-

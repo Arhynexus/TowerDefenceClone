@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TurretMode: 2
   m_projectilePrefab: {fileID: 8299681612657692830, guid: 31a4e991f209c4d42a6976f7a9df36ca, type: 3}
+<<<<<<< HEAD
   m_RateOfFire: 0.5
+=======
+  m_RateOfFire: 0.1
+>>>>>>> parent of 3a08899 (Reorganize files)
   m_EnergyUsage: 0
   m_AmmoUsage: 0
   m_LaunchSFX: {fileID: 0}

@@ -345,10 +345,12 @@ namespace CosmoSimClone
 
         protected void Use(EnemyAsset asset)
         {
-            m_HitPoints = asset.healthPoints;
+            m_HitPoints = asset.HealthPoints;
+            m_Shield = asset.ShieldPoints;
+            m_Armor = asset.ArmorPoints;
+            m_ResistanceOfArmor = asset.ArmorResitance;
 
-            m_ScoreAmount = asset.score;
+            m_ScoreAmount = asset.Score;
         }
     }
 }
-
