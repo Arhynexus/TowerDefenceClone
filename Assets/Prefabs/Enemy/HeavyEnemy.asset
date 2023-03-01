@@ -16,7 +16,7 @@ MonoBehaviour:
   spriteScale: {x: 3, y: 3}
   animations: {fileID: 9100000, guid: 0d63b3676f5f42b4e977d6d3cf798c1f, type: 2}
   MoveSpeed: 1
-  Radius: 0.2
+  Radius: 0.3
   HealthPoints: 10
   ShieldPoints: 10
   ArmorPoints: 10

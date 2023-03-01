@@ -33,12 +33,12 @@ namespace TowerDefenceClone
 
         public void DamagePlayer()
         {
-            Player.Instance.TakeDamage(m_Damage);
+            TDPlayer.Instance.ChangeLife(m_Damage);
         }
 
         public void GiveGold()
         {
-            (Player.Instance as TDPlayer).ChangeGold(m_Gold);
+            TDPlayer.Instance.ChangeGold(m_Gold);
         }
 
         [CustomEditor(typeof(Enemy))]

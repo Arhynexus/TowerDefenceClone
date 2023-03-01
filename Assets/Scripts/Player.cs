@@ -9,6 +9,7 @@ namespace CosmoSimClone
     public class Player : SingletonBase<Player>
     {
         [SerializeField] private int m_Lives;
+        public int Lives => m_Lives;
         [SerializeField] private GameObject m_ShipPrefab;
 
         //[SerializeField] private MovementController m_MovementController;
@@ -68,7 +69,7 @@ namespace CosmoSimClone
             }
         }
 
-        public void TakeDamage(int damage)
+        protected void TakeDamage(int damage)
         {
             m_Lives -= damage;
             if (m_Lives <= 0)
