@@ -15,16 +15,16 @@ namespace TowerDefenceClone
         private Text m_Text; 
         
         // Start is called before the first frame update
-        void Awake()
+        void Start()
         {
             m_Text = GetComponent<Text>();
 
             switch(Source)
             {
-                case UpdateSource.Gold: TDPlayer.OnGoldpdate += UpdateText;
+                case UpdateSource.Gold: TDPlayer.OnGoldUpdateSubscribe(UpdateText);
                     break;
 
-                case UpdateSource.Life: TDPlayer.OnLifepdate += UpdateText;
+                case UpdateSource.Life: TDPlayer.OnLifeUpdateSubscribe(UpdateText);
                     break;
             }
         }

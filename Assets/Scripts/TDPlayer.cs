@@ -1,7 +1,6 @@
 using UnityEngine;
 using CosmoSimClone;
 using System;
-
 namespace TowerDefenceClone
 {
 
@@ -19,14 +18,20 @@ namespace TowerDefenceClone
             }
         }
         
-        public static event Action<int> OnGoldpdate;
-        public static event Action<int> OnLifepdate;
-
-        private void Start()
+        private static event Action<int> OnGoldpdate;
+        public static void OnGoldUpdateSubscribe(Action<int> act)
         {
-            OnGoldpdate(m_Gold);
-            OnLifepdate(Lives);
+            OnGoldpdate += act;
+            act(Instance.m_Gold);
         }
+        private static event Action<int> OnLifepdate;
+        public static void OnLifeUpdateSubscribe(Action<int> act)
+        {
+            OnLifepdate += act;
+            act(Instance.Lives);
+        }
+
+
 
         public void ChangeGold(int change)
         {
@@ -38,6 +43,16 @@ namespace TowerDefenceClone
         {
             TakeDamage(amount);
             OnLifepdate(Lives);
+        }
+
+        [SerializeField] private Tower m_TowerPrefab;
+        public void TryBuild(TowerAsset TowerAsset, Transform m_BuildSite)
+        {
+            ChangeGold(-TowerAsset.GoldCost);
+            var tower = Instantiate(m_TowerPrefab, m_BuildSite.position, Quaternion.identity);
+            tower.GetComponentInChildren<SpriteRenderer>().sprite = TowerAsset.Sprite;
+            tower.GetComponentInChildren<Turret>().AssignLoadOut(TowerAsset.TurretProperties);
+            Destroy(m_BuildSite.gameObject);
         }
     }
 }
