@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8246066b2e946e24fad7225651c17854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnMode: 1
+  m_SpawnMode: 0
   m_CircleArea: {fileID: 1053358778}
   m_NumSpawns: 1
   m_RespawnTime: 2
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053358777}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8246066b2e946e24fad7225651c17854, type: 3}
   m_Name: 
