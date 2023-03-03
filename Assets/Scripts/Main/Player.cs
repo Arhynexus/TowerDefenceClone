@@ -76,6 +76,7 @@ namespace CosmoSimClone
             {
                 m_Lives = 0;
                 //LevelSequenceController.Instance.FinishCurrentLevel(false);
+                LevelSequenceController.Instance.RestartLevel();
             }
         }
     }

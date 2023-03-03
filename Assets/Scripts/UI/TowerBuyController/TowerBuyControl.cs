@@ -15,15 +15,14 @@ namespace TowerDefenceClone
         [SerializeField] private Text m_Text;
         [SerializeField] private Button m_Button;
         [SerializeField] private Transform m_BuildSite;
-        public Transform BuildSite { set { m_BuildSite = value; } }
-
-        private void Awake()
-        {
-            TDPlayer.OnGoldUpdateSubscribe(GoldStatusCheck);
+        public void SetBuildSite(Transform value)
+        {  
+            m_BuildSite = value;
         }
 
         private void Start()
         {
+            TDPlayer.OnGoldUpdateSubscribe(GoldStatusCheck);
             m_Text.text = m_Ta.GoldCost.ToString();
             m_Button.GetComponent<Image>().sprite = m_Ta.GUISprite;
         }
@@ -37,9 +36,15 @@ namespace TowerDefenceClone
             }
         }
 
+        private void OnDestroy()
+        {
+            TDPlayer.OnGoldUpdateUnsubscribe(GoldStatusCheck);
+        }
+
         public void Buy()
         {
             TDPlayer.Instance.TryBuild(m_Ta, m_BuildSite);
+            BuildSite.HideControls();
         }
     }
 }

@@ -34,7 +34,6 @@ namespace TowerDefenceClone
                 {
                     target = null;
                 }
-                
             }
             else
             {

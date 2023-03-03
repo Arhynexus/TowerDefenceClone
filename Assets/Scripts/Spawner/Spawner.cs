@@ -11,7 +11,9 @@ namespace TowerDefenceClone
         public enum SpawnMode
         {
             Start,
-            Loop
+            StartWithDelay,
+            Loop,
+            LoopWithDelay,
         }
 
         protected abstract GameObject GenerateSpawnedEntity();
@@ -33,7 +35,11 @@ namespace TowerDefenceClone
         /// </summary>
         [SerializeField] private float m_RespawnTime;
 
+        [SerializeField] private float m_StartDelayTime;
+
         private float m_Timer;
+        private float m_StartDelayTimer;
+        private bool m_CanSpawn;
         void Start()
         {
             if (m_SpawnMode == SpawnMode.Start || m_SpawnMode == SpawnMode.Loop)
@@ -41,13 +47,30 @@ namespace TowerDefenceClone
                 SpawnEntities();
             }
             m_Timer = m_RespawnTime;
+            m_StartDelayTimer = m_StartDelayTime;
+            m_CanSpawn = true;
         }
 
         void Update()
         {
-            if (m_Timer > 0) m_Timer -= Time.deltaTime;
+            if (m_StartDelayTimer < 0)
+            {
+                if (m_Timer > 0) m_Timer -= Time.deltaTime;
+            }
+            if (m_StartDelayTimer > 0)
+            {
+                m_StartDelayTimer -= Time.deltaTime;
+            }
+            if (m_SpawnMode == SpawnMode.StartWithDelay && m_StartDelayTimer < 0 && m_CanSpawn == true)
+            {
+                if (m_Timer < 0)
+                {
+                    SpawnEntities();
+                    m_CanSpawn = false;
+                }
+            }
 
-            if (m_SpawnMode == SpawnMode.Loop && m_Timer <0)
+            if (m_SpawnMode == SpawnMode.Loop || m_SpawnMode == SpawnMode.LoopWithDelay && m_Timer <0)
             {
                 SpawnEntities();
                 m_Timer = m_RespawnTime;

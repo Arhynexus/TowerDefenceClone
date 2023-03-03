@@ -24,6 +24,10 @@ namespace TowerDefenceClone
             OnGoldpdate += act;
             act(Instance.m_Gold);
         }
+        public static void OnGoldUpdateUnsubscribe(Action<int> act)
+        {
+            OnGoldpdate -= act;
+        }
         private static event Action<int> OnLifepdate;
         public static void OnLifeUpdateSubscribe(Action<int> act)
         {
