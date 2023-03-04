@@ -15,7 +15,7 @@ namespace CosmoSimClone
         /// <summary>
         /// Масса для ригида
         /// </summary>
-        [Header ("SpaceShip")]
+        [Header("SpaceShip")]
         [SerializeField] private float m_Mass;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace CosmoSimClone
         /// </summary>
         [SerializeField] private float m_Thrust;
 
-        
+
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace CosmoSimClone
         public float TorqueControl { get; set; }
         #endregion
 
-        private Vector2 speed; 
+        private Vector2 speed;
 
         protected override void Start()
         {
@@ -92,6 +92,7 @@ namespace CosmoSimClone
             speed = m_Rigidbody.velocity;
             VelocityBuffTimer();
             ThrustBuffTimer();
+            VelocityDebuffTimer();
         }
 
         /// <summary>
@@ -138,10 +139,10 @@ namespace CosmoSimClone
         private void UpdateRigidBody()
         {
             m_Rigidbody.AddForce(ThrustControl * m_Thrust * transform.up * Time.fixedDeltaTime, ForceMode2D.Force);
-            m_Rigidbody.AddForce(-m_Rigidbody.velocity * ( m_Thrust / m_MaxLinearVelocity)* Time.fixedDeltaTime, ForceMode2D.Force);
+            m_Rigidbody.AddForce(-m_Rigidbody.velocity * (m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
 
             m_Rigidbody.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
-            m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity *(m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+            m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
         }
 
         #endregion
@@ -252,7 +253,7 @@ namespace CosmoSimClone
         }
         #endregion
         */
-        
+
 
         #region Buffs
 
@@ -267,21 +268,20 @@ namespace CosmoSimClone
         /// <param name="amount">Сила эффекта в %</param>
         public void AddMaxLinearVelocity(int duration, float amount)
         {
-            m_MaxLinearVelocity += m_MaxLinearVelocity * (amount/100);
+            m_MaxLinearVelocity += m_MaxLinearVelocity * (amount / 100);
             m_MaxLinearVelocityBuffTimer = duration;
             m_MaxLinearVelocityBuffIsActive = true;
         }
 
         private void VelocityBuffTimer()
         {
-            
+
             if (m_MaxLinearVelocityBuffIsActive == true)
             {
                 m_MaxLinearVelocityBuffTimer -= Time.deltaTime;
                 if (m_MaxLinearVelocityBuffTimer <= 0)
                 {
                     m_MaxLinearVelocity = m_MaxLnearVelocityDefault;
-                    Debug.Log("Max velocity is Returned to normal value " + m_MaxLinearVelocity);
                     m_MaxLinearVelocityBuffIsActive = false;
                     return;
                 }
@@ -313,7 +313,6 @@ namespace CosmoSimClone
                 if (m_ThrustBuffTimer <= 0)
                 {
                     m_Thrust = m_ThrustDefault;
-                    Debug.Log("Thrust is Returned to normal value " + m_Thrust);
                     m_ThrustBuffIsActive = false;
                     return;
                 }
@@ -327,5 +326,59 @@ namespace CosmoSimClone
             m_MaxLinearVelocity = asset.MoveSpeed;
             base.Use(asset);
         }
+
+        #region Debuffs
+
+        private bool m_MaxLinearVelocityDebuffIsActive = false;
+        private float m_MaxLinearVelocityDebuffTimer;
+
+        /// <summary>
+        /// Убавляем максимальную скорость
+        /// </summary>
+        /// <param name="duration">Длительсность эффекта</param>
+        /// <param name="amount">Сила эффекта в %</param>
+        public void ReduceMaxLinearVelocity(float duration, float amount)
+        {
+            if (m_MaxLinearVelocityDebuffIsActive == false)
+            {
+                m_MaxLinearVelocity -= m_MaxLinearVelocity * (amount / 100);
+                m_MaxLinearVelocityDebuffTimer = duration;
+                m_MaxLinearVelocityDebuffIsActive = true;
+            }
+            else
+            return;
+        }
+
+        private void VelocityDebuffTimer()
+        {
+
+            if (m_MaxLinearVelocityDebuffIsActive == true)
+            {
+                m_MaxLinearVelocityDebuffTimer -= Time.deltaTime;
+                if (m_MaxLinearVelocityDebuffTimer <= 0)
+                {
+                    m_MaxLinearVelocity = m_MaxLnearVelocityDefault;
+                    m_MaxLinearVelocityDebuffIsActive = false;
+                    return;
+                }
+            }
+        }
+
+        internal void ReduceArmor(float debuffTime, float debuffStrength)
+        {
+        }
+
+        internal void ReduceArmorResistance(float debuffTime, float debuffStrength)
+        {
+        }
+
+        internal void ReduceShield(float debuffTime, float debuffStrength)
+        {
+        }
+
+        internal void DamagePerSecondToHealth(float debuffTime, float debuffStrength)
+        {
+        }
+        #endregion
     }
 }

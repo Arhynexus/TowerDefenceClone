@@ -7,30 +7,32 @@ namespace CosmoSimClone
     public class Turret : MonoBehaviour
     {
 
-        [SerializeField] private TurretMode m_Mode;
+        private TurretMode m_Mode;
         public TurretMode Mode => m_Mode;
 
         [SerializeField] private TurretProperties m_TurretProperties;
 
         private float m_RefireTimer;
-
         public bool CanFire => m_RefireTimer <= 0;
 
         private SpaceShip m_Ship;
 
         [SerializeField] private AudioSource m_AudioSource;
 
+        public float DebuffTime { get; private set; }
+        public float DebuffStrength { get; private set; }
 
-        void Start()
+
+        private void Start()
         {
             m_Ship = transform.root.GetComponent<SpaceShip>();
+            AssignLoadOut(m_TurretProperties);
         }
 
 
-        void Update()
+        private void Update()
         {
             if (m_RefireTimer > 0) m_RefireTimer -= Time.deltaTime;
-            else if (m_Mode == TurretMode.Auto) Fire();
         }
 
         // Public API
@@ -46,9 +48,6 @@ namespace CosmoSimClone
                 if (m_Ship.DrawAmmo(m_TurretProperties.AmmoUsage) == false) return;
             }
 
-            
-
-
             if (m_AudioSource != null)
             {
                 m_AudioSource.Play();
@@ -58,20 +57,16 @@ namespace CosmoSimClone
             projectile.transform.position = transform.position;
             projectile.transform.up = transform.up;
 
-            
-
-            // Add Consumption of Ammo and Energy
-
             m_RefireTimer = m_TurretProperties.RateOfFire;
-
-            // Add play sound for turret
         }
 
         public void AssignLoadOut(TurretProperties props)
         {
-            if(m_Mode != props.TurretMode) return;
             m_RefireTimer = 0;
             m_TurretProperties = props;
+            m_Mode = props.TurretMode;
+            DebuffTime = props.DebuffTime;
+            DebuffStrength = props.DebuffStrength;
         }
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b033a541c84f1c945978037209f27e90, type: 3}
   m_Name: SimpleTower
   m_EditorClassIdentifier: 
-  m_TurretMode: 0
+  m_TurretMode: 2
   m_projectilePrefab: {fileID: 8299681612657692830, guid: 31a4e991f209c4d42a6976f7a9df36ca, type: 3}
   m_RateOfFire: 0.3
   m_EnergyUsage: 0

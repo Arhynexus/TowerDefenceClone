@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78f91656df8dad24584ce494755d6b7a, type: 3}
-  m_Name: FastEnemy
+  m_Name: ReinforcedEnemy
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0.6775004, b: 0.990566, a: 1}
+  color: {r: 1, g: 0.019607844, b: 0, a: 1}
   spriteScale: {x: 2, y: 2}
   animations: {fileID: 9100000, guid: e1b2eacc8a7242f40bbeada50e9d51dd, type: 2}
-  MoveSpeed: 3
+  MoveSpeed: 1
   Radius: 0.2
-  HealthPoints: 5
-  ShieldPoints: 0
-  ArmorPoints: 0
-  ArmorResitance: 0
+  HealthPoints: 15
+  ShieldPoints: 15
+  ArmorPoints: 15
+  ArmorResitance: 15
   Score: 1
   Damage: 1
-  Gold: 1
+  Gold: 5

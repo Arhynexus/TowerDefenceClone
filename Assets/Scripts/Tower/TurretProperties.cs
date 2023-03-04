@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
@@ -9,7 +8,12 @@ namespace CosmoSimClone
     {
         Main,
         Secondary,
-        Auto
+        Auto,
+        Freeze,
+        ArmorDown,
+        ArmorResistanceDown,
+        ShieldDown,
+        BleedUp
     }
     [CreateAssetMenu]
 
@@ -30,6 +34,13 @@ namespace CosmoSimClone
 
         [SerializeField] private int m_AmmoUsage;
         public int AmmoUsage => m_AmmoUsage;
+
+        [SerializeField] private float m_DebuffTime;
+        public float DebuffTime => m_DebuffTime;
+
+        [Tooltip("Объем снимаемой характеристики в %")]
+        [SerializeField] [Range(0,100)] private float m_DebuffStrength;
+        public float DebuffStrength => m_DebuffStrength;
 
         [SerializeField] private AudioClip m_LaunchSFX;
         public AudioClip LaunchSFX => m_LaunchSFX;
