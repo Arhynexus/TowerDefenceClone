@@ -89,7 +89,7 @@ namespace CosmoSimClone
         {
             UpdateRigidBody();
             //UpdateEnergyRegen();
-            speed = m_Rigidbody.velocity;
+            speed = m_Rigidbody.velocity.normalized;
             VelocityBuffTimer();
             ThrustBuffTimer();
             VelocityDebuffTimer();
@@ -138,8 +138,8 @@ namespace CosmoSimClone
         /// </summary>
         private void UpdateRigidBody()
         {
-            m_Rigidbody.AddForce(ThrustControl * m_Thrust * transform.up * Time.fixedDeltaTime, ForceMode2D.Force);
-            m_Rigidbody.AddForce(-m_Rigidbody.velocity * (m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
+            m_Rigidbody.AddForce(m_Thrust * ThrustControl * Time.fixedDeltaTime * transform.up, ForceMode2D.Force);
+            m_Rigidbody.AddForce((m_Thrust / m_MaxLinearVelocity) * Time.fixedDeltaTime * -m_Rigidbody.velocity, ForceMode2D.Force);
 
             m_Rigidbody.AddTorque(TorqueControl * m_Mobility * Time.fixedDeltaTime, ForceMode2D.Force);
             m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity * (m_Mobility / m_MaxAngularVelocity) * Time.fixedDeltaTime, ForceMode2D.Force);
@@ -321,7 +321,7 @@ namespace CosmoSimClone
 
         #endregion
 
-        public void Use(EnemyAsset asset)
+        public new void Use(EnemyAsset asset)
         {
             m_MaxLinearVelocity = asset.MoveSpeed;
             base.Use(asset);

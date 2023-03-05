@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TowerDefenceClone;
+using System;
 
 namespace CosmoSimClone
 {
@@ -28,18 +29,18 @@ namespace CosmoSimClone
         /// </summary>
         [SerializeField] private int m_Shield;
 
-        private int m_MaxShield;
+        private int m_CurrentShield;
 
-        public int MaxShield => m_MaxShield;
+        public int MaxShield => m_CurrentShield;
         public int Shield => m_Shield;
 
         /// <summary>
         /// Стартовое значение брони
         /// </summary>
         [SerializeField] private int m_Armor;
-        private int m_MaxArmor;
+        private int m_CurrentArmor;
 
-        public int MaxArmor => m_MaxArmor;
+        public int MaxArmor => m_CurrentArmor;
 
         /// <summary>
         /// Сопротивление брони входящему урону
@@ -71,7 +72,6 @@ namespace CosmoSimClone
         public UnityEvent ChangeHitPoints;
         protected virtual void Start()
         {
-            explosionEffect = GetComponent<VisualEffects>();
             SetStartHitPoints();
             ChangeHitPoints.Invoke();
             resistance = m_ResistanceOfArmor;
@@ -84,8 +84,8 @@ namespace CosmoSimClone
         public void SetStartHitPoints()
         {
             m_CurrentHealthPoints = m_HitPoints;
-            m_MaxArmor = m_Armor;
-            m_MaxShield = m_Shield;
+            m_CurrentArmor = m_Armor;
+            m_CurrentShield = m_Shield;
         }
 
         private void Update()
@@ -104,6 +104,7 @@ namespace CosmoSimClone
         public void ApplyDamage(int damage)
         {
             if (m_Indestructible) return;
+            if (damage == 0) return;
 
             int shieldDamage = m_Shield;
 
@@ -123,12 +124,12 @@ namespace CosmoSimClone
                 int damageToHealth = totaldamage - damageToArmor;
                 if (damageToHealth < 1) damageToHealth = 1;
                 
-                m_Armor -= damageToArmor;
+                m_CurrentArmor -= damageToArmor;
                 m_CurrentHealthPoints -= damageToHealth;
 
-                if (m_Armor <= 0)
+                if (m_CurrentArmor <= 0)
                 {
-                    m_Armor = 0;
+                    m_CurrentArmor = 0;
                     damageToHealth = damage;
                     m_CurrentHealthPoints -= damageToHealth;
                 }
@@ -185,7 +186,7 @@ namespace CosmoSimClone
         public void RestoreShield(int amountOfRestoredShieldPoints)
         {
             m_Shield += amountOfRestoredShieldPoints;
-            if (m_Shield > m_MaxShield) m_Shield = m_MaxShield;
+            if (m_Shield > m_CurrentShield) m_Shield = m_CurrentShield;
             ChangeHitPoints.Invoke();
         }
 
@@ -196,7 +197,7 @@ namespace CosmoSimClone
         public void RestoreArmor(int amountOfRestoredArmorPoints)
         {
             m_Armor += amountOfRestoredArmorPoints;
-            if (m_Armor > m_MaxArmor) m_Armor = m_MaxArmor;
+            if (m_Armor > m_CurrentArmor) m_Armor = m_CurrentArmor;
             ChangeHitPoints.Invoke();
         }
 
@@ -250,6 +251,16 @@ namespace CosmoSimClone
                 }
             }
         }
+
+        public void RemoveArmor(int m_StatusDamage)
+        {
+            if (m_CurrentArmor <= 0)
+            {
+                m_CurrentArmor = 0;
+                return;
+            }
+            m_CurrentArmor -= m_StatusDamage;
+        }
         #endregion
 
         #region ShieldDebuffs
@@ -267,7 +278,7 @@ namespace CosmoSimClone
         {
             if (m_Indestructible == true) return;
             m_DebuffShieldDisableTimer = duration;
-            float maxShield = m_MaxShield;
+            float maxShield = m_CurrentShield;
             int shieldDebuff = (int)(maxShield - (maxShield - maxShield / 100 * amount));
             if(m_Shield > shieldDebuff)
             {
@@ -291,12 +302,22 @@ namespace CosmoSimClone
                 if (m_DebuffShieldDisableTimer <= 0)
                 {
                     m_Shield += m_ShieldBase;
-                    if(m_Shield > m_MaxShield) m_Shield = m_MaxShield;
+                    if(m_Shield > m_CurrentShield) m_Shield = m_CurrentShield;
                     ChangeHitPoints.Invoke();
                     m_DisableShield = false;
                     return;
                 }
             }
+        }
+
+        internal void RemoveShield(int m_StatusDamage)
+        {
+            if (m_CurrentShield <= 0)
+            {
+                m_CurrentShield = 0;
+                return;
+            }
+            m_CurrentShield -= m_StatusDamage;
         }
 
         /// <summary>
@@ -352,5 +373,7 @@ namespace CosmoSimClone
 
             m_ScoreAmount = asset.Score;
         }
+
+        
     }
 }

@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TowerDefenceClone;
 
 namespace CosmoSimClone
 {
     public class Projectile : Entity
     {
+        [Header("Игровые характеристики")]
         /// <summary>
         /// Скорость движения снаряда
         /// </summary>
@@ -15,21 +17,34 @@ namespace CosmoSimClone
         /// <summary>
         /// Время жизни снаряда
         /// </summary>
-        [SerializeField] private float lifeTime;
+        [SerializeField] private float m_LifeTime;
         /// <summary>
         /// Урон, наносимый снарядом
         /// </summary>
-        [SerializeField] public int m_damage;
+        [SerializeField] private int m_Damage;
+
+        [SerializeField] private int m_StatusDamage;
         /// <summary>
-        /// Эффект столкновения
+        /// Радиус воздействия для пуль с атакой по площади
+        /// </summary>
+        [SerializeField] private float m_Radius;
+        /// <summary>
+        /// Настройки пули
+        /// </summary>
+        [SerializeField] private AssetProjectile m_Asset;
+
+        [SerializeField] private ProjectileType m_Type;
+
+        [Header("Внешний вид и Эффекты")]
+        /// <summary>
+        /// Эффекты столкновения
         /// </summary>
         [SerializeField] private ImpactEffect m_ImpactEffectPrefab_01;
         [SerializeField] private ImpactEffect m_ImpactEffectPrefab_02;
-        private float m_Timer;
 
         protected virtual void Start()
         {
-            Destroy(gameObject, lifeTime);
+            Destroy(gameObject, m_LifeTime);
         }
 
         protected virtual void Update()
@@ -45,7 +60,20 @@ namespace CosmoSimClone
 
                 if(dest != null && dest != m_Parent)
                 {
-                    dest.ApplyDamage(m_damage);
+                    if(m_Type == ProjectileType.Standart)
+                    {
+                        dest.ApplyDamage(m_Damage);
+                    }
+                    if (m_Type == ProjectileType.AP)
+                    {
+                        dest.ApplyDamage(m_Damage);
+                        dest.RemoveArmor(m_StatusDamage);
+                    }
+                    if (m_Type == ProjectileType.EMP)
+                    {
+                        dest.ApplyDamage(m_Damage);
+                        dest.RemoveShield(m_StatusDamage);
+                    }
                 }
                 OnProjectileLifeEnd(hit.collider, hit.point);
             }
@@ -87,6 +115,17 @@ namespace CosmoSimClone
             transform.position += transform.up * m_Velocity * Time.fixedDeltaTime;
         }
 
-
+        public void Use(AssetProjectile m_AssetProjectile)
+        {
+            var sr = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+            sr.sprite = m_AssetProjectile.ProjectileSprite;
+            sr.color = m_AssetProjectile.Color;
+            m_Damage = m_AssetProjectile.Damage;
+            m_StatusDamage = m_AssetProjectile.StatusDamage;
+            m_Velocity = m_AssetProjectile.Velocity;
+            m_Radius = m_AssetProjectile.Radius;
+            m_LifeTime = m_AssetProjectile.LifeTime;
+            m_Type = m_AssetProjectile.ProjectileType;
+        }
     }
 }
