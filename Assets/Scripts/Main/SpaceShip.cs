@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TowerDefenceClone;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace CosmoSimClone
 {
@@ -77,6 +73,7 @@ namespace CosmoSimClone
             //InitOffence();
             m_MaxLnearVelocityDefault = m_MaxLinearVelocity;
             m_ThrustDefault = m_Thrust;
+            Debufftimer = new(0);
         }
 
         #region Unity Event
@@ -93,6 +90,7 @@ namespace CosmoSimClone
             VelocityBuffTimer();
             ThrustBuffTimer();
             VelocityDebuffTimer();
+            Debufftimer.RemoveTime(Time.deltaTime);
         }
 
         /// <summary>
@@ -331,6 +329,7 @@ namespace CosmoSimClone
 
         private bool m_MaxLinearVelocityDebuffIsActive = false;
         private float m_MaxLinearVelocityDebuffTimer;
+        Timer Debufftimer = new(0);
 
         /// <summary>
         /// Убавляем максимальную скорость
@@ -341,17 +340,19 @@ namespace CosmoSimClone
         {
             if (m_MaxLinearVelocityDebuffIsActive == false)
             {
+                
                 m_MaxLinearVelocity -= m_MaxLinearVelocity * (amount / 100);
                 m_MaxLinearVelocityDebuffTimer = duration;
                 m_MaxLinearVelocityDebuffIsActive = true;
             }
             else
-            return;
+                return;
         }
 
         private void VelocityDebuffTimer()
         {
 
+            
             if (m_MaxLinearVelocityDebuffIsActive == true)
             {
                 m_MaxLinearVelocityDebuffTimer -= Time.deltaTime;
@@ -363,21 +364,46 @@ namespace CosmoSimClone
                 }
             }
         }
-
-        internal void ReduceArmor(float debuffTime, float debuffStrength)
+        /// <summary>
+        /// Убавляем запас брони
+        /// </summary>
+        /// <param name="debuffTime">Длительность эффекта</param>
+        /// <param name="debuffStrength">Сила эффекта в %</param>
+        public void ReduceArmor(float debuffTime, float debuffStrength)
         {
+
         }
-
-        internal void ReduceArmorResistance(float debuffTime, float debuffStrength)
+        /// <summary>
+        /// Убавляем сопротивляемость брони
+        /// </summary>
+        /// <param name="debuffTime">Длительность эффекта</param>
+        /// <param name="debuffStrength">Сила эффекта в %</param>
+        public void ReduceArmorResistance(float debuffTime, float debuffStrength)
         {
+
         }
-
-        internal void ReduceShield(float debuffTime, float debuffStrength)
+        /// <summary>
+        /// Убавляем запас щитов
+        /// </summary>
+        /// <param name="debuffTime">Длительность эффекта</param>
+        /// <param name="debuffStrength">Сила эффекта в %</param>
+        public void ReduceShield(float debuffTime, float debuffStrength)
         {
+
         }
-
-        internal void DamagePerSecondToHealth(float debuffTime, float debuffStrength)
+        /// <summary>
+        /// Убавляем здоровье врага игнорируя щиты и броню
+        /// </summary>
+        /// <param name="debuffTime">Длительность эффекта</param>
+        /// <param name="debuffStrength">Сила эффекта в %/сек</param>
+        public void DamagePerSecondToHealth(float debuffTime, float debuffStrength)
         {
+            Debufftimer.Start(debuffTime);
+            if(Debufftimer.IsFinished)
+            {
+                print("DAMAGETOHEALTH");
+                Debufftimer.Start(debuffTime);
+            }
         }
         #endregion
     }

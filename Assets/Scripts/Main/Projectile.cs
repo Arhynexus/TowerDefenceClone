@@ -69,7 +69,7 @@ namespace CosmoSimClone
                         dest.ApplyDamage(m_Damage);
                         dest.RemoveArmor(m_StatusDamage);
                     }
-                    if (m_Type == ProjectileType.EMP)
+                    if (m_Type == ProjectileType.AS)
                     {
                         dest.ApplyDamage(m_Damage);
                         dest.RemoveShield(m_StatusDamage);

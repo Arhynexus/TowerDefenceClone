@@ -1,6 +1,3 @@
-using CosmoSimClone;
-using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace TowerDefenceClone
@@ -10,7 +7,7 @@ namespace TowerDefenceClone
         [Tooltip("Простая пуля")] Standart,
         [Tooltip("Бронебойная пуля")] AP,
         [Tooltip("Взрывная пуля")] EXP,
-        [Tooltip("Антищитовая пуля")] EMP
+        [Tooltip("Антищитовая пуля")] AS
     }
     [CreateAssetMenu]
     public class AssetProjectile : ScriptableObject

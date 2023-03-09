@@ -1,10 +1,9 @@
-using CosmoSimClone;
 using UnityEngine;
 
 
 namespace TowerDefenceClone
 {
-    
+
     [CreateAssetMenu]
 
     public sealed class EnemyAsset : ScriptableObject
@@ -24,9 +23,7 @@ namespace TowerDefenceClone
         public RuntimeAnimatorController animations;
 
         [Header("Настройки игровых параметров")]
-        /// <summary>
-        /// Скорость перемещения
-        /// </summary>
+        [Tooltip("Скорость перемещения")]
         public float MoveSpeed = 1f;
         /// <summary>
         /// Радиус коллайдера
@@ -39,15 +36,15 @@ namespace TowerDefenceClone
         /// <summary>
         /// Объем щитов. Без сопротивляемости
         /// </summary>
-        public int ShieldPoints = 1;
+        public int ShieldPoints;
         /// <summary>
         /// Запас прочности брони
         /// </summary>
-        public int ArmorPoints = 1;
+        public int ArmorPoints;
         /// <summary>
         /// Сопротивляемость брони
         /// </summary>
-        public int ArmorResitance = 1;
+        public int ArmorResitance;
         /// <summary>
         /// Начисляемые очки
         /// </summary>
