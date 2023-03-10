@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StandartProjectile
   m_EditorClassIdentifier: 
   ProjectileType: 0
-  Damage: 5
+  Damage: 6
   StatusDamage: 0
   Radius: 0
   Velocity: 15
