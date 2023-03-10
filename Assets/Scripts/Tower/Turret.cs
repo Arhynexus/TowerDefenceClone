@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TowerDefenceClone;
 using UnityEngine;
 
 namespace CosmoSimClone
@@ -11,6 +12,7 @@ namespace CosmoSimClone
         public TurretMode Mode => m_Mode;
 
         [SerializeField] private TurretProperties m_TurretProperties;
+        [SerializeField] private AssetProjectile m_AssetProjectile;
 
         private float m_RefireTimer;
         public bool CanFire => m_RefireTimer <= 0;
@@ -54,6 +56,7 @@ namespace CosmoSimClone
             }
             Projectile projectile = Instantiate(m_TurretProperties.ProjectilePrefab).GetComponent<Projectile>();
             projectile.SetParentShooter(m_Ship);
+            projectile.Use(m_AssetProjectile);
             projectile.transform.position = transform.position;
             projectile.transform.up = transform.up;
 
@@ -64,6 +67,7 @@ namespace CosmoSimClone
         {
             m_RefireTimer = 0;
             m_TurretProperties = props;
+            m_AssetProjectile = props.AssetProjectile;
             m_Mode = props.TurretMode;
             DebuffTime = props.DebuffTime;
             DebuffStrength = props.DebuffStrength;
