@@ -31,6 +31,10 @@ namespace CosmoSimClone
         {
             gameObject.SetActive(true);
 
+
+
+
+            /* 
             int bonusTime = LevelController.Instance.ReferenceTime - playerStatistics.Time;
             if (bonusTime > 0)
             {
@@ -40,12 +44,7 @@ namespace CosmoSimClone
             {
                 bonusTime = 0;
                 m_BonusScore = 0;
-            } 
-
-            m_succes = succes;
-
-            m_ResultText.text = m_succes ? "Победа!" : "Проиграл!";
-            m_ButtonNextText.text = m_succes ? "Далее" : "Рестарт";
+            }
             m_KillsText.text = "Уничтожено: " + playerStatistics.Kills.ToString();
             m_ScoreText.text = "Очки: " + playerStatistics.Score.ToString();
             float timeConditionForResultPanel = playerStatistics.Time;
@@ -57,8 +56,13 @@ namespace CosmoSimClone
             TotalScoreForSave += m_BonusScore + playerStatistics.Score;
             TotalKillsForSave += playerStatistics.Kills;
             OnSaveStats.Invoke();
-
             Time.timeScale = 0;
+            */
+
+            m_succes = succes;
+
+            m_ButtonNextText.text = m_succes ? "Далее" : "Рестарт";
+            m_ResultText.text = m_succes ? "Победа!" : "Проиграл!";
         }
 
         public void OnButtonNextAction()

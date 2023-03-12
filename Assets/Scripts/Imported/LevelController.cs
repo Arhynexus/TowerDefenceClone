@@ -19,7 +19,7 @@ namespace CosmoSimClone
 
         public int ReferenceTime => m_ReferenceTime;
 
-        //[SerializeField] private UnityEvent m_EventLevelCompleted;
+        [SerializeField] protected UnityEvent m_EventLevelCompleted;
 
         private ILevelCondition[] m_Conditions;
 
@@ -31,14 +31,18 @@ namespace CosmoSimClone
         public float LevelTime => m_LevelTime;
 
 
-        void Start()
+        protected void Start()
         {
             m_Conditions = GetComponentsInChildren<ILevelCondition>();
         }
 
         private void CheckLevelConditions()
         {
-            if (m_Conditions == null || m_Conditions.Length == 0) return;
+            if (m_Conditions == null || m_Conditions.Length == 0)
+            {
+                
+                return;
+            } 
 
             int numCompleted = 0;
 
@@ -48,7 +52,7 @@ namespace CosmoSimClone
             if (numCompleted == m_Conditions.Length)
             {
                 m_IsLevelCompleted = true;
-                //m_EventLevelCompleted.Invoke();
+                m_EventLevelCompleted.Invoke();
 
                 LevelSequenceController.Instance.FinishCurrentLevel(true);
             }

@@ -62,8 +62,7 @@ namespace CosmoSimClone
         public void FinishCurrentLevel(bool success)
         {
             LasLevelResult = success;
-            CalculateLevelStatistics();
-            
+            //CalculateLevelStatistics();
             ResultPanelController.Instance.ShowResults(LevelStatistics, success);
         }
 

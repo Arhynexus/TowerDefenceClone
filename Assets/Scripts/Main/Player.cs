@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace CosmoSimClone
 {
@@ -16,6 +13,8 @@ namespace CosmoSimClone
         //[SerializeField] private CameraController m_CameraController;
         //[SerializeField] private PlayerHUD_UI hudUI;
         [SerializeField] private Transform m_SpawnPoint;
+
+        public event Action OnPlayerDead;
 
         private SpaceShip m_Ship;
 
@@ -75,8 +74,7 @@ namespace CosmoSimClone
             if (m_Lives <= 0)
             {
                 m_Lives = 0;
-                //LevelSequenceController.Instance.FinishCurrentLevel(false);
-                LevelSequenceController.Instance.RestartLevel();
+                OnPlayerDead?.Invoke();
             }
         }
     }
