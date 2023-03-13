@@ -10,7 +10,7 @@ namespace CosmoSimClone
 
     public class LevelSequenceController : SingletonBase<LevelSequenceController>
     {
-        public static string MainMenuScene = "MainMenu";
+        public static string MainMenuScene = "LevelMap";
 
         public Episode CurrentEpisode { get; private set; }
 
