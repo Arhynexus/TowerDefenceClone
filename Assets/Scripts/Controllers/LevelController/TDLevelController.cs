@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CosmoSimClone;
 
@@ -9,6 +7,7 @@ namespace TowerDefenceClone
 
     public class TDLevelController : LevelController
     {
+        public int LevelScore => 1;
         private new void Start()
         {
             base.Start();
@@ -17,6 +16,11 @@ namespace TowerDefenceClone
                 StopLevelActivity();
                 ResultPanelController.Instance.ShowResults(null, false);
             };
+            m_EventLevelCompleted.AddListener(() =>
+            {
+                StopLevelActivity();
+                MapCompletion.SaveEpisodeResult(LevelScore);
+            });
         }
 
         
