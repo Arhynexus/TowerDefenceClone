@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CosmoSimClone;
 
@@ -42,7 +40,7 @@ namespace TowerDefenceClone
         private bool m_CanSpawn;
         void Start()
         {
-            if (m_SpawnMode == SpawnMode.Start || m_SpawnMode == SpawnMode.Loop)
+            if (m_SpawnMode == SpawnMode.Start)
             {
                 SpawnEntities();
             }
@@ -70,7 +68,7 @@ namespace TowerDefenceClone
                 }
             }
 
-            if (m_SpawnMode == SpawnMode.Loop || m_SpawnMode == SpawnMode.LoopWithDelay && m_Timer <0)
+            if (m_SpawnMode == SpawnMode.Loop && m_Timer < 0 || m_SpawnMode == SpawnMode.LoopWithDelay && m_Timer <0)
             {
                 SpawnEntities();
                 m_Timer = m_RespawnTime;

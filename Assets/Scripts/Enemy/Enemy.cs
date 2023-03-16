@@ -20,7 +20,11 @@ namespace TowerDefenceClone
 
             sr.GetComponent<Animator>().runtimeAnimatorController = asset.animations;
 
-            GetComponent<SpaceShip>().Use(asset);
+            SpaceShip spaceShip = GetComponent<SpaceShip>();
+
+            spaceShip.Use(asset);
+            spaceShip.SetMaxLinearVelocity(asset.MoveSpeed);
+
 
             CircleCollider2D collider = GetComponentInChildren<CircleCollider2D>();
 
