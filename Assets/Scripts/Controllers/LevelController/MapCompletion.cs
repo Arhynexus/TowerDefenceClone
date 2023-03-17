@@ -5,11 +5,9 @@ using System;
 namespace TowerDefenceClone
 {
 
-
-
     public class MapCompletion : SingletonBase<MapCompletion>
     {
-        const string filename = "completion.dat";
+        public const string filename = "completion.dat";
         
         [Serializable]
         public class EpisodeScore
@@ -24,7 +22,7 @@ namespace TowerDefenceClone
             {
                 if (item.Episode == currentEpisode)
                 {
-                    if (levelScore > item.Score) 
+                    if (levelScore >= item.Score) 
                     {
                         item.Score = levelScore;
                         Saver<EpisodeScore[]>.Save(filename, m_CompletionData);
