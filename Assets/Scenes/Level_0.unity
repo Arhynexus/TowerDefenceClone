@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DoNotDestroyOnLoad: 0
-  m_Lives: 1
+  m_Lives: 20
   m_ShipPrefab: {fileID: 0}
   m_SpawnPoint: {fileID: 0}
   m_Gold: 15
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DoNotDestroyOnLoad: 0
-  m_ReferenceTime: 120
+  m_ReferenceTime: 5
   m_EventLevelCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8246066b2e946e24fad7225651c17854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnMode: 3
+  m_SpawnMode: 0
   m_CircleArea: {fileID: 1053358778}
   m_NumSpawns: 3
   m_RespawnTime: 3
@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8246066b2e946e24fad7225651c17854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnMode: 3
+  m_SpawnMode: 0
   m_CircleArea: {fileID: 1053358778}
   m_NumSpawns: 5
   m_RespawnTime: 3
@@ -2253,7 +2253,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 430421529014206090, guid: db51ce23171af8f49b5be6f5bb7dd457, type: 3}
       propertyPath: m_ConditionTime
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 430421529014206092, guid: db51ce23171af8f49b5be6f5bb7dd457, type: 3}
       propertyPath: m_Name

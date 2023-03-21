@@ -33,7 +33,10 @@ namespace TowerDefenceClone
 
         public static void SaveEpisodeResult(int levelScore)
         {
-            Instance.SaveResult(LevelSequenceController.Instance.CurrentEpisode, levelScore);
+            if(Instance)
+            {
+                Instance.SaveResult(LevelSequenceController.Instance.CurrentEpisode, levelScore);
+            }
         }
 
         [SerializeField] private EpisodeScore[] m_CompletionData;

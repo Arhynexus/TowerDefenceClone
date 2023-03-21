@@ -15,9 +15,9 @@ namespace CosmoSimClone
     {
         
 
-        [SerializeField] private int m_ReferenceTime;
+        [SerializeField] protected float m_ReferenceTime;
 
-        public int ReferenceTime => m_ReferenceTime;
+        public float ReferenceTime => m_ReferenceTime;
 
         [SerializeField] protected UnityEvent m_EventLevelCompleted;
 
