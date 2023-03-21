@@ -13,7 +13,6 @@ namespace TowerDefenceClone
         private void Start()
         {
             m_ContinueButton.interactable = FileHandler.HasFile(MapCompletion.filename);
-            m_ConfirmPanel.SetActive(false);
         }
         public void OnButtonNewGame()
         {

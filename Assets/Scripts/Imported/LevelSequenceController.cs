@@ -10,7 +10,7 @@ namespace CosmoSimClone
 
     public class LevelSequenceController : SingletonBase<LevelSequenceController>
     {
-        public static string MainMenuScene = "LevelMap";
+        public static string LevelMapScene = "LevelMap";
 
         public Episode CurrentEpisode { get; private set; }
 
@@ -36,8 +36,8 @@ namespace CosmoSimClone
 
         public void RestartLevel()
         {
-            //SceneManager.LoadScene(CurrentEpisode.Levels[CurrentLevel]);
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(CurrentEpisode.Levels[CurrentLevel]);
+            //SceneManager.LoadScene(0);
         }
 
         public void AdvanceLevel()
@@ -46,7 +46,7 @@ namespace CosmoSimClone
             CurrentLevel++;
             if (CurrentEpisode.Levels.Length <= CurrentLevel)
             {
-                SceneManager.LoadScene(MainMenuScene);
+                SceneManager.LoadScene(LevelMapScene);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace CosmoSimClone
 
         public void ToMainMenu()
         {
-            SceneManager.LoadScene(MainMenuScene);
+            SceneManager.LoadScene(LevelMapScene);
         }
         
         public void FinishCurrentLevel(bool success)
