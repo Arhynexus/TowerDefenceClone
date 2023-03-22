@@ -1,7 +1,6 @@
 using UnityEngine;
 using CosmoSimClone;
 using UnityEngine.UI;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace TowerDefenceClone
 {
@@ -10,7 +9,9 @@ namespace TowerDefenceClone
 
     public class MapLevel : MonoBehaviour
     {
-        [SerializeField] private Text m_LevelCompletionText;
+        [SerializeField] private RectTransform m_ResultPanel;
+        [SerializeField] private Image[] m_ResultImages;
+        
         private Episode m_Episode;
 
 
@@ -22,7 +23,10 @@ namespace TowerDefenceClone
         public void SetLevelData(Episode episode, int score)
         {
             m_Episode = episode;
-            m_LevelCompletionText.text = $"{score}/3";
+            for (int i = 0; i < score; i++)
+            {
+                m_ResultImages[i].color = Color.white;
+            }
         }
     }
 }
