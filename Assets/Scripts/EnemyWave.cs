@@ -22,7 +22,9 @@ namespace TowerDefenceClone
         [SerializeField] private PathGroup[] groups;
         [SerializeField] private float m_PrepareTime = 10f;
 
-        private event Action OnWaveReady;
+        public float GetRemaningTime() { return m_PrepareTime - Time.time; }
+        public static Action OnWaveReady;
+        public static Action<float> OnWavePrepare;
 
         private void Awake()
         {
@@ -41,6 +43,7 @@ namespace TowerDefenceClone
 
         public void Prepare(Action spawnEnemies)
         {
+            OnWavePrepare(m_PrepareTime);
             m_PrepareTime += Time.time;
             enabled = true;
             OnWaveReady += spawnEnemies;
@@ -59,7 +62,7 @@ namespace TowerDefenceClone
             if (Time.time >= m_PrepareTime)
             {
                 enabled = false;
-                OnWaveReady.Invoke();
+                OnWaveReady?.Invoke();
             }
         }
     }
