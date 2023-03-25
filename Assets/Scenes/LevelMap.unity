@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: m_RootLevel
       value: 
       objectReference: {fileID: 1164728576}
+    - target: {fileID: 2643230220957145989, guid: a61e9314bd77d3c4688d768bb87b6e31, type: 3}
+      propertyPath: m_NeedPoints
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a61e9314bd77d3c4688d768bb87b6e31, type: 3}
 --- !u!4 &187339434 stripped
@@ -327,7 +331,7 @@ MonoBehaviour:
   - {fileID: 1164728576}
   m_BranchLevels:
   - {fileID: 709081244}
-  - {fileID: 0}
+  - {fileID: 1656754741}
 --- !u!1 &441082113
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +556,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 483770608851664981, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
   m_PrefabInstance: {fileID: 1855458284}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1656754741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2643230220957145989, guid: a61e9314bd77d3c4688d768bb87b6e31, type: 3}
+  m_PrefabInstance: {fileID: 187339433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82c8be8f1d8ab14f9c6cc6b761af095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1791212453
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +602,11 @@ MonoBehaviour:
     Score: 0
   - Episode: {fileID: 11400000, guid: 6de925ca09736a04d83d7da647760e4d, type: 2}
     Score: 0
+  - Episode: {fileID: 11400000, guid: 57056b08423727c4aa28cdd4ef2ab77f, type: 2}
+    Score: 0
+  - Episode: {fileID: 11400000, guid: 92971f650901efb4e9ed16f6d1c081ff, type: 2}
+    Score: 0
+  m_TotalScore: 0
 --- !u!4 &1791212455
 Transform:
   m_ObjectHideFlags: 0
@@ -657,10 +677,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level2
       objectReference: {fileID: 0}
-    - target: {fileID: 8010817162527070906, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
-      propertyPath: m_Episode
-      value: 
-      objectReference: {fileID: 11400000, guid: 6de925ca09736a04d83d7da647760e4d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
 --- !u!114 &1886157286 stripped
@@ -799,6 +815,18 @@ PrefabInstance:
     - target: {fileID: 2754140661509758263, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
       propertyPath: m_Name
       value: Level1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527061899319546492, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1886157286}
+    - target: {fileID: 6527061899319546492, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6527061899319546492, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TowerDefenceClone.MapLevel, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f58ed56dad0f124d9cb6126e6a23864, type: 3}

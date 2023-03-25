@@ -1,6 +1,8 @@
 using UnityEngine;
 using CosmoSimClone;
 using UnityEngine.UI;
+using System;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace TowerDefenceClone
 {
@@ -12,7 +14,7 @@ namespace TowerDefenceClone
         [SerializeField] private RectTransform m_ResultPanel;
         [SerializeField] private Image[] m_ResultImages;
         
-        private Episode m_Episode;
+        [SerializeField] private Episode m_Episode;
 
         public bool IsComplete { get { return
                     gameObject.activeSelf && m_ResultPanel.gameObject.activeSelf; } }
@@ -21,9 +23,10 @@ namespace TowerDefenceClone
             LevelSequenceController.Instance.StartEpisode(m_Episode);
         }
 
-        public void SetLevelData(Episode episode, int score)
+
+        public void Initialise()
         {
-            m_Episode = episode;
+            var score = MapCompletion.Instance.GetEpisodeScore(m_Episode);
             m_ResultPanel.gameObject.SetActive(score > 0);
             for (int i = 0; i < score; i++)
             {

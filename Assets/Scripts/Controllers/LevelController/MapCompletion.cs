@@ -66,5 +66,17 @@ namespace TowerDefenceClone
             score = 0;
             return false;
         }
+
+        public int GetEpisodeScore(Episode m_Episode)
+        {
+            foreach (var data in m_CompletionData)
+            {
+                if (data.Episode == m_Episode)
+                {
+                    return data.Score;
+                }
+            }
+            return 0;
+        }
     }
 }

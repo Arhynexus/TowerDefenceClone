@@ -13,10 +13,9 @@ namespace TowerDefenceClone
         {
             var drawLevel = 0;
             var score = 1;
-            while (score !=0 && drawLevel < m_Levels.Length &&
-                MapCompletion.Instance.TryIndex(drawLevel, out var episode, out score)) 
+            while (score !=0 && drawLevel < m_Levels.Length) 
             {
-                m_Levels[drawLevel].SetLevelData(episode, score);
+                m_Levels[drawLevel].Initialise();
                 drawLevel += 1;
                 if (score == 0) break;
             }
