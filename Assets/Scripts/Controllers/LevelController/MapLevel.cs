@@ -14,7 +14,8 @@ namespace TowerDefenceClone
         
         private Episode m_Episode;
 
-
+        public bool IsComplete { get { return
+                    gameObject.activeSelf && m_ResultPanel.gameObject.activeSelf; } }
         public void LoadLevel()
         {
             LevelSequenceController.Instance.StartEpisode(m_Episode);
@@ -23,6 +24,7 @@ namespace TowerDefenceClone
         public void SetLevelData(Episode episode, int score)
         {
             m_Episode = episode;
+            m_ResultPanel.gameObject.SetActive(score > 0);
             for (int i = 0; i < score; i++)
             {
                 m_ResultImages[i].color = Color.white;

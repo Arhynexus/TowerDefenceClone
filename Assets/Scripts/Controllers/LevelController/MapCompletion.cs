@@ -40,11 +40,17 @@ namespace TowerDefenceClone
         }
 
         [SerializeField] private EpisodeScore[] m_CompletionData;
+        [SerializeField] private int m_TotalScore;
+        public int TotalScore => m_TotalScore;
 
         private new void Awake()
         {
             base.Awake();
             Saver<EpisodeScore[]>.TryLoad(filename, ref m_CompletionData);
+            foreach (var episodeScore in m_CompletionData)
+            {
+                m_TotalScore += episodeScore.Score;
+            }
         }
 
         public bool TryIndex(int id, out Episode episode, out int score)
