@@ -53,20 +53,6 @@ namespace TowerDefenceClone
             }
         }
 
-        public bool TryIndex(int id, out Episode episode, out int score)
-        {
-            if (id >= 0 && id < m_CompletionData.Length)
-            {
-                episode = m_CompletionData[id].Episode;
-                score = m_CompletionData[id].Score;
-
-                return true;
-            }
-            episode = null;
-            score = 0;
-            return false;
-        }
-
         public int GetEpisodeScore(Episode m_Episode)
         {
             foreach (var data in m_CompletionData)

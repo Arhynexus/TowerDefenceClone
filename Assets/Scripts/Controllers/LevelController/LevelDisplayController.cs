@@ -13,7 +13,7 @@ namespace TowerDefenceClone
         {
             var drawLevel = 0;
             var score = 1;
-            while (score !=0 && drawLevel < m_Levels.Length) 
+            while (score != 0 && drawLevel < m_Levels.Length) 
             {
                 m_Levels[drawLevel].Initialise();
                 drawLevel += 1;
