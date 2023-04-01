@@ -34,6 +34,19 @@ namespace TowerDefenceClone
             }
         }
 
+        public static int GetTalCost()
+        {
+            int result = 0;
+            foreach(var upgrade in Instance.m_Save)
+            {
+                for (int i = 0; i < upgrade.Level; i++)
+                {
+                    result += upgrade.Asset.CostByLevel[i];
+                }
+            }
+            return result;
+        }
+
         public static int GetUpgradeLevel(UpgradeAsset asset)
         {
             foreach (var upgrade in Instance.m_Save)

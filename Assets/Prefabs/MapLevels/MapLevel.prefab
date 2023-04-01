@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 483770608851664981}
   - component: {fileID: 8010817162527070906}
   m_Layer: 0
-  m_Name: MapPoint
+  m_Name: MapLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

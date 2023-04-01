@@ -15,7 +15,9 @@ namespace TowerDefenceClone
         [Header("Настройки пули")]
         public ProjectileType ProjectileType;
         public int Damage;
+        public int DefaultDamage;
         public int StatusDamage;
+        public int DefaultStatusDamage;
         /// <summary>
         /// Радиус поражения
         /// </summary>

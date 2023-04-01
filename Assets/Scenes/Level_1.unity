@@ -267,6 +267,15 @@ MonoBehaviour:
   m_SpawnPoint: {fileID: 0}
   m_Gold: 15
   m_TowerPrefab: {fileID: 1186422329209060425, guid: e9c0cac795405cc499071b9f82c4b963, type: 3}
+  m_HealthUpgrade: {fileID: 11400000, guid: fc9b1c4097e8cdd40b49e47b847f2d6a, type: 2}
+  m_ShieldUpgrade: {fileID: 11400000, guid: ac817f8e8d113f949a03741c0da956ec, type: 2}
+  m_ShieldPanel: {fileID: 1805231251}
+  m_Shield: 0
+  m_DamageUpgrade: {fileID: 11400000, guid: 4ff51fdd6721ccb419a115e14673f930, type: 2}
+  m_ProjectileAssets:
+  - {fileID: 11400000, guid: 9295c1c935d993d4aacd3b85771b8de5, type: 2}
+  - {fileID: 11400000, guid: cd53187897954a948bc5c107c7d0cfaf, type: 2}
+  - {fileID: 11400000, guid: e7fd669970b885b408d05e6650d6bb1f, type: 2}
 --- !u!114 &73633554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,12 +1865,31 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3672779401741780, guid: 52e0d5ed25bccd44a8b3f0544ced0c5e, type: 3}
   m_PrefabInstance: {fileID: 3672780228477713}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1641273607}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3748684b66712944a8dd315199149350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1641273607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3672779401741781, guid: 52e0d5ed25bccd44a8b3f0544ced0c5e, type: 3}
+  m_PrefabInstance: {fileID: 3672780228477713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1641273608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641273607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8589cc033fc2583409ee45da32021cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DoNotDestroyOnLoad: 0
+  m_Save: []
 --- !u!1 &1675355993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,6 +2097,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cf5ddf9b80ca1a42824243478789b41, type: 3}
+--- !u!1 &1805231251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5842251865731372465, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
+  m_PrefabInstance: {fileID: 8107127156884300164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1911609237
 GameObject:
   m_ObjectHideFlags: 0

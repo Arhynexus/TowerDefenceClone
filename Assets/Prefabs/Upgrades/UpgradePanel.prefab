@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Asset: {fileID: 11400000, guid: fc9b1c4097e8cdd40b49e47b847f2d6a, type: 2}
   m_UpgradeIcon: {fileID: 7894228743437543080}
   m_Level: {fileID: 7894228742977775495}
-  m_Cost: {fileID: 7894228742007402932}
+  m_CostText: {fileID: 7894228742007402932}
   m_BuyButton: {fileID: 7894228742810916806}
 --- !u!1 &7894228742007402934
 GameObject:

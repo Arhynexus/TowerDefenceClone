@@ -14,11 +14,24 @@ namespace TowerDefenceClone
 
         private void Start()
         {
-            m_Money = MapCompletion.Instance.TotalScore;
-            m_MoneyText.text = m_Money.ToString();
-            foreach (var slot in m_Sales) 
+            foreach (var slot in m_Sales)
             {
                 slot.Initialize();
+                slot.transform.Find("UpgradeButton").GetComponent<Button>().onClick.AddListener(UpdateMoney);
+            }
+            UpdateMoney();
+        }
+
+        private void UpdateMoney()
+        {
+            print("Update");
+            m_Money = MapCompletion.Instance.TotalScore;
+            m_Money -= Upgrades.GetTalCost();
+            if (m_Money < 0) m_Money = 0;
+            m_MoneyText.text = m_Money.ToString();
+            foreach (var slot in m_Sales)
+            {
+                slot.CheckCost(m_Money);
             }
         }
     }

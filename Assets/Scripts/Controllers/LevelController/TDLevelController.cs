@@ -29,13 +29,13 @@ namespace TowerDefenceClone
                 MapCompletion.SaveEpisodeResult(LevelScore);
             });
 
-            void LifeSocreChange(int _)
+            void LifeScoreChange(int _)
             {
                 LevelScore -= 1;
-                TDPlayer.OnLifepdate -= LifeSocreChange;
+                TDPlayer.OnLifepdate -= LifeScoreChange;
             }
 
-            TDPlayer.OnLifepdate += LifeSocreChange;
+            TDPlayer.OnLifepdate += LifeScoreChange;
         }
 
         

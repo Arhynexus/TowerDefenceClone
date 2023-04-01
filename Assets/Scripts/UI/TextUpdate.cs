@@ -8,7 +8,7 @@ namespace TowerDefenceClone
 {
     public class TextUpdate : MonoBehaviour
     {
-        public enum UpdateSource { Gold, Life }
+        public enum UpdateSource { Gold, Life, Shield }
 
         public UpdateSource Source = UpdateSource.Gold;
         
@@ -26,12 +26,15 @@ namespace TowerDefenceClone
 
                 case UpdateSource.Life: TDPlayer.OnLifeUpdateSubscribe(UpdateText);
                     break;
+
+                case UpdateSource.Shield: TDPlayer.OnShieldSubscribe(UpdateText);
+                    break;
             }
         }
 
         private void OnDestroy()
         {
-                TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
+            TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
         }
 
         private void UpdateText(int money)
