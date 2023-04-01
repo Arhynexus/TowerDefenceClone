@@ -3,11 +3,18 @@ using UnityEngine;
 
 namespace TowerDefenceClone
 {
-
+    public enum ArmorType
+    {
+        [Tooltip("Физическая")] Physical,
+        [Tooltip("Магическая")] Magical,
+        [Tooltip("Пустотная")] Void
+    }
     [CreateAssetMenu]
 
     public sealed class EnemyAsset : ScriptableObject
     {
+        
+        
         [Header("Настройки внешнего вида")]
         /// <summary>
         /// Цвет спрайта
@@ -42,9 +49,13 @@ namespace TowerDefenceClone
         /// </summary>
         public int ArmorPoints;
         /// <summary>
+        /// Тип Брони
+        /// </summary>
+        public ArmorType TypeOfArmor;
+        /// <summary>
         /// Сопротивляемость брони
         /// </summary>
-        public int ArmorResitance;
+        [Range(0,100)]public int ArmorResistance;
         /// <summary>
         /// Начисляемые очки
         /// </summary>

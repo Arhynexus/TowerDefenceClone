@@ -34,5 +34,10 @@ namespace TowerDefenceClone
             }
 
         }
+
+        private void OnDestroy()
+        {
+            BuildSite.OnClickEvent -= MoveToBuildSite;
+        }
     }
 }

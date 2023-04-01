@@ -9,11 +9,20 @@ namespace TowerDefenceClone
         [Tooltip("Взрывная пуля")] EXP,
         [Tooltip("Антищитовая пуля")] AS
     }
+
+    public enum DamageType
+    {
+        [Tooltip("Магический")] Magic,
+        [Tooltip("Физический")] Physical,
+        [Tooltip("Пустотный")] Void,
+        [Tooltip("Дефолтный")] Default
+    }
     [CreateAssetMenu]
     public class AssetProjectile : ScriptableObject
     {
         [Header("Настройки пули")]
         public ProjectileType ProjectileType;
+        public DamageType DamageType;
         public int Damage;
         public int DefaultDamage;
         public int StatusDamage;

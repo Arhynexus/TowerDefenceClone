@@ -37,7 +37,7 @@ namespace CosmoSimClone
 
         private void SetStartEnemyHitPoints()
         {
-            m_ShieldPoints = m_EnemyShip.Shield;
+            m_ShieldPoints = m_EnemyShip.MaxShield;
             m_CurrentShieldPoints = ((float)m_ShieldPoints / (float)m_EnemyShip.MaxShield) * 10;
             for (int i = 0; i < m_ShieldBar.Length; i++)
             {
@@ -50,7 +50,7 @@ namespace CosmoSimClone
                 m_ArmorBar[i].SetActive(true);
             }
             m_HealthPoints = m_EnemyShip.CurrentHealthPoints;
-            m_CurrentHealthPoints = ((float)m_HealthPoints / (float)m_EnemyShip.Hitpoints) * 10;
+            m_CurrentHealthPoints = ((float)m_HealthPoints / (float)m_EnemyShip.MaxHitpoints) * 10;
             for (int i = 0; i < m_HealthBar.Length; i++)
             {
                 m_HealthBar[i].SetActive(true);
@@ -66,7 +66,7 @@ namespace CosmoSimClone
         {
             if (m_ShieldBar != null)
             {
-                m_ShieldPoints = m_EnemyShip.Shield;
+                m_ShieldPoints = m_EnemyShip.MaxShield;
                 m_CurrentShieldPoints = ((float)m_ShieldPoints / (float)m_EnemyShip.MaxShield) * 10;
                 
                 if (m_CurrentShieldPoints < 10)
@@ -181,7 +181,7 @@ namespace CosmoSimClone
             if(m_HealthBar != null)
             {
                 m_HealthPoints = m_EnemyShip.CurrentHealthPoints;
-                m_CurrentHealthPoints = ((float)m_HealthPoints / (float)m_EnemyShip.Hitpoints) * 10;
+                m_CurrentHealthPoints = ((float)m_HealthPoints / (float)m_EnemyShip.MaxHitpoints) * 10;
                 
                 if (m_CurrentHealthPoints < 10)
                 {

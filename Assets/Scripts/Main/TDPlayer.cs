@@ -63,7 +63,10 @@ namespace TowerDefenceClone
         {
             ChangeGold(-TowerAsset.GoldCost);
             var tower = Instantiate(m_TowerPrefab, m_BuildSite.position, Quaternion.identity);
-            tower.GetComponentInChildren<SpriteRenderer>().sprite = TowerAsset.Sprite;
+            var sprite = tower.GetComponentInChildren<SpriteRenderer>();
+            sprite.sprite = TowerAsset.Sprite;
+            sprite.color = TowerAsset.Color;
+            
             tower.GetComponentInChildren<Turret>().AssignLoadOut(TowerAsset.TurretProperties);
             Destroy(m_BuildSite.gameObject);
         }

@@ -798,11 +798,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groups:
   - squads:
-    - asset: {fileID: 11400000, guid: 9ecfb6f5bf7e1ff4cb8e70db5ad0c811, type: 2}
-      count: 3
+    - asset: {fileID: 11400000, guid: 509a4d01d33da954b93fdcf631755f51, type: 2}
+      count: 1
   - squads:
     - asset: {fileID: 11400000, guid: 9ecfb6f5bf7e1ff4cb8e70db5ad0c811, type: 2}
-      count: 2
+      count: 0
   m_PrepareTime: 20
   m_NextWave: {fileID: 1680535502}
 --- !u!4 &825180519
@@ -1631,8 +1631,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groups:
   - squads:
-    - asset: {fileID: 11400000, guid: 9ecfb6f5bf7e1ff4cb8e70db5ad0c811, type: 2}
-      count: 3
+    - asset: {fileID: 11400000, guid: 999179c1c24aab74d8c1788650214f57, type: 2}
+      count: 1
   m_PrepareTime: 20
   m_NextWave: {fileID: 825180518}
 --- !u!4 &1511317414
@@ -1757,10 +1757,10 @@ MonoBehaviour:
   groups:
   - squads:
     - asset: {fileID: 11400000, guid: 999179c1c24aab74d8c1788650214f57, type: 2}
-      count: 0
+      count: 1
   - squads:
     - asset: {fileID: 11400000, guid: 9ecfb6f5bf7e1ff4cb8e70db5ad0c811, type: 2}
-      count: 3
+      count: 0
     - asset: {fileID: 11400000, guid: 999179c1c24aab74d8c1788650214f57, type: 2}
       count: 1
   m_PrepareTime: 20
@@ -2191,6 +2191,10 @@ PrefabInstance:
       propertyPath: m_NextWave
       value: 
       objectReference: {fileID: 1511317413}
+    - target: {fileID: 350026972011715429, guid: 94261aca532685445abdbb08c7aa8e4b, type: 3}
+      propertyPath: groups.Array.data[0].squads.Array.data[0].asset
+      value: 
+      objectReference: {fileID: 11400000, guid: 509a4d01d33da954b93fdcf631755f51, type: 2}
     - target: {fileID: 350026972011715430, guid: 94261aca532685445abdbb08c7aa8e4b, type: 3}
       propertyPath: m_Name
       value: Wave 1
@@ -2361,6 +2365,10 @@ PrefabInstance:
     - target: {fileID: 7315246187099003592, guid: 2fd91af74bcbc494c841678bca113735, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7315246187099003593, guid: 2fd91af74bcbc494c841678bca113735, type: 3}
+      propertyPath: m_Gold
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7315246187099003593, guid: 2fd91af74bcbc494c841678bca113735, type: 3}
       propertyPath: m_ShieldPanel

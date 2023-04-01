@@ -20,7 +20,8 @@ MonoBehaviour:
   HealthPoints: 20
   ShieldPoints: 20
   ArmorPoints: 20
-  ArmorResitance: 30
+  TypeOfArmor: 0
+  ArmorResistance: 30
   Score: 1
   Damage: 2
   Gold: 3

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e77e4027a2bcdd4b9ef2af7a51d46f4, type: 3}
-  m_Name: ArmorPiercingProjectile
+  m_Name: VoidProjectile
   m_EditorClassIdentifier: 
-  ProjectileType: 1
-  DamageType: 3
-  Damage: 4
-  DefaultDamage: 4
-  StatusDamage: 15
-  DefaultStatusDamage: 15
+  ProjectileType: 0
+  DamageType: 2
+  Damage: 6
+  DefaultDamage: 6
+  StatusDamage: 0
+  DefaultStatusDamage: 0
   Radius: 0
   Velocity: 15
   LifeTime: 3
   ProjectileSprite: {fileID: 21300000, guid: 608910b210324d04fb0662feb7f3c492, type: 3}
   ProjectileGUI: {fileID: 0}
-  Color: {r: 0.09227479, g: 0.6792453, b: 0.16234957, a: 1}
+  Color: {r: 1, g: 1, b: 1, a: 1}

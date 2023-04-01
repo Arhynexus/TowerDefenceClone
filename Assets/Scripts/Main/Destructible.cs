@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TowerDefenceClone;
-using System;
 
 namespace CosmoSimClone
 {
@@ -27,33 +25,34 @@ namespace CosmoSimClone
         /// <summary>
         /// Стартовое значение щитов
         /// </summary>
-        [SerializeField] private int m_Shield;
+        [SerializeField] private int m_MaxShield;
 
         private int m_CurrentShield;
 
-        public int MaxShield => m_CurrentShield;
-        public int Shield => m_Shield;
+        public int MaxShield => m_MaxShield;
 
         /// <summary>
         /// Стартовое значение брони
         /// </summary>
-        [SerializeField] private int m_Armor;
+        [SerializeField] private int m_MaxArmor;
         private int m_CurrentArmor;
 
-        public int MaxArmor => m_CurrentArmor;
+        public int MaxArmor => m_MaxArmor;
+
+        [SerializeField] private ArmorType m_TypeOfArmor;
 
         /// <summary>
         /// Сопротивление брони входящему урону
         /// </summary>
         [SerializeField] private int m_ResistanceOfArmor;
-        public int Armor => m_Armor;
+        public int Armor => m_MaxArmor;
         public int ResistanceOfArmor => m_ResistanceOfArmor;
 
         /// <summary>
         /// Стартовое значение хитпоинтов
         /// </summary>
-        [SerializeField] private int m_HitPoints;
-        public int Hitpoints => m_HitPoints;
+        [SerializeField] private int m_MaxHitPoints;
+        public int MaxHitpoints => m_MaxHitPoints;
 
         /// <summary>
         /// Текущее значение хитпоинтов
@@ -75,7 +74,7 @@ namespace CosmoSimClone
             SetStartHitPoints();
             ChangeHitPoints.Invoke();
             resistance = m_ResistanceOfArmor;
-            m_ShieldBase = m_Shield;
+            m_ShieldBase = m_MaxShield;
         }
 
         /// <summary>
@@ -83,9 +82,9 @@ namespace CosmoSimClone
         /// </summary>
         public void SetStartHitPoints()
         {
-            m_CurrentHealthPoints = m_HitPoints;
-            m_CurrentArmor = m_Armor;
-            m_CurrentShield = m_Shield;
+            m_CurrentHealthPoints = m_MaxHitPoints;
+            m_CurrentArmor = m_MaxArmor;
+            m_CurrentShield = m_MaxShield;
         }
 
         private void Update()
@@ -101,36 +100,37 @@ namespace CosmoSimClone
         /// Применение урона объекту.
         /// </summary>
         /// <param name="damage">Урон, наносимый объекту</param>
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int enterdamage, DamageType type)
         {
+            int damageAfterArmorResistance = CalculateDamage(enterdamage, type, m_TypeOfArmor, m_ResistanceOfArmor);
+            print(damageAfterArmorResistance);
             if (m_Indestructible) return;
-            if (damage == 0) return;
+            if (damageAfterArmorResistance == 0) return;
 
-            int shieldDamage = m_Shield;
+            int shield = m_CurrentShield;
 
-            int damageToshield = damage;
+            int damageToshield = enterdamage;
 
-            m_Shield -= damageToshield;
+            m_CurrentShield -= damageToshield;
 
-            damage -= shieldDamage;
+            enterdamage -= shield;
 
-            if (m_Shield <= 0)
+            if (m_CurrentShield <= 0)
             {
-                m_Shield = 0;
-                int adsorbeddamage = damage * m_ResistanceOfArmor / 100;
-                int totaldamage = damage - adsorbeddamage;
+                m_CurrentShield = 0;
+                int adsorbeddamage = enterdamage * m_ResistanceOfArmor / 100;
+                int totaldamage = damageAfterArmorResistance - adsorbeddamage;
                 int damageToArmor = totaldamage * m_ResistanceOfArmor / 100;
                 if (damageToArmor < 1) damageToArmor = 1;
-                int damageToHealth = totaldamage - damageToArmor;
+                int damageToHealth = damageAfterArmorResistance;
                 if (damageToHealth < 1) damageToHealth = 1;
-                
+
                 m_CurrentArmor -= damageToArmor;
                 m_CurrentHealthPoints -= damageToHealth;
-
                 if (m_CurrentArmor <= 0)
                 {
                     m_CurrentArmor = 0;
-                    damageToHealth = damage;
+                    damageToHealth = enterdamage;
                     m_CurrentHealthPoints -= damageToHealth;
                 }
             }
@@ -140,14 +140,50 @@ namespace CosmoSimClone
             if (m_CurrentHealthPoints <= 0) OnDeath();
         }
 
+        private static int CalculateDamage(int damage, DamageType Dtype, ArmorType Atype, int resistanceOfArmor)
+        {
+            {
+                switch(Atype)
+                {
+                    case ArmorType.Magical:
+                        switch(Dtype)
+                        {
+                            case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 100);  return damage;
+                            case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
+                            case DamageType.Void: return damage * 2;
+                            case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
+                            default:  return damage;
+                        }
+                    case ArmorType.Physical:
+                        switch(Dtype)
+                        {
+                            case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 200); return damage;
+                            case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
+                            case DamageType.Void: return damage * 2;
+                            case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
+                            default:  return damage;
+                        }
+                    case ArmorType.Void:
+                        switch(Dtype)
+                        {
+                            case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
+                            case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
+                            case DamageType.Void: return damage;
+                            case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
+                            default:  return damage;
+                        }
+                }
+                return damage;
+            }
+        }
+
         #endregion
 
+
+        #region Actions
         /// <summary>
         /// Переопределяемый метод события уничтожения объекта, когда хитпоинты равны или ниже нуля.
         /// </summary>
-
-        #region Actions
-
         protected virtual void OnDeath()
         {
             m_EventOnDeath.Invoke();
@@ -185,8 +221,8 @@ namespace CosmoSimClone
         /// <param name="amountOfRestoredShieldPoints">Объем восстанавливаемых щитов</param>
         public void RestoreShield(int amountOfRestoredShieldPoints)
         {
-            m_Shield += amountOfRestoredShieldPoints;
-            if (m_Shield > m_CurrentShield) m_Shield = m_CurrentShield;
+            m_MaxShield += amountOfRestoredShieldPoints;
+            if (m_MaxShield > m_CurrentShield) m_MaxShield = m_CurrentShield;
             ChangeHitPoints.Invoke();
         }
 
@@ -196,8 +232,8 @@ namespace CosmoSimClone
         /// <param name="amountOfRestoredArmorPoints">Объем восстанавливаемой брони</param>
         public void RestoreArmor(int amountOfRestoredArmorPoints)
         {
-            m_Armor += amountOfRestoredArmorPoints;
-            if (m_Armor > m_CurrentArmor) m_Armor = m_CurrentArmor;
+            m_MaxArmor += amountOfRestoredArmorPoints;
+            if (m_MaxArmor > m_CurrentArmor) m_MaxArmor = m_CurrentArmor;
             ChangeHitPoints.Invoke();
         }
 
@@ -208,7 +244,7 @@ namespace CosmoSimClone
         public void RestoreHealth(int amountOfRestoredHealthPoints)
         {
             m_CurrentHealthPoints += amountOfRestoredHealthPoints;
-            if (m_CurrentHealthPoints > m_HitPoints) m_CurrentHealthPoints = m_HitPoints;
+            if (m_CurrentHealthPoints > m_MaxHitPoints) m_CurrentHealthPoints = m_MaxHitPoints;
             ChangeHitPoints.Invoke();
         }
         #endregion
@@ -280,16 +316,16 @@ namespace CosmoSimClone
             m_DebuffShieldDisableTimer = duration;
             float maxShield = m_CurrentShield;
             int shieldDebuff = (int)(maxShield - (maxShield - maxShield / 100 * amount));
-            if(m_Shield > shieldDebuff)
+            if(m_MaxShield > shieldDebuff)
             {
                 m_ShieldBase = shieldDebuff;
             }
             else
             {
-                m_ShieldBase = m_Shield;
+                m_ShieldBase = m_MaxShield;
             }
-            m_Shield -= shieldDebuff;
-            if (m_Shield < 0) m_Shield = 0;
+            m_MaxShield -= shieldDebuff;
+            if (m_MaxShield < 0) m_MaxShield = 0;
             ChangeHitPoints.Invoke();
             m_DisableShield = true;
         }
@@ -301,8 +337,8 @@ namespace CosmoSimClone
                 m_DebuffShieldDisableTimer -= Time.deltaTime;
                 if (m_DebuffShieldDisableTimer <= 0)
                 {
-                    m_Shield += m_ShieldBase;
-                    if(m_Shield > m_CurrentShield) m_Shield = m_CurrentShield;
+                    m_MaxShield += m_ShieldBase;
+                    if(m_MaxShield > m_CurrentShield) m_MaxShield = m_CurrentShield;
                     ChangeHitPoints.Invoke();
                     m_DisableShield = false;
                     return;
@@ -327,14 +363,10 @@ namespace CosmoSimClone
         /// <param name="amount">Объем в %</param>
         public void MaxHealthDown(int duration, int amount)
         {
-            m_CurrentHealthPoints -= Hitpoints - (Hitpoints / 100 * amount);
+            m_CurrentHealthPoints -= MaxHitpoints - (MaxHitpoints / 100 * amount);
         }
 
         #endregion
-
-
-
-
 
         #endregion
 
@@ -366,14 +398,12 @@ namespace CosmoSimClone
 
         protected void Use(EnemyAsset asset)
         {
-            m_HitPoints = asset.HealthPoints;
-            m_Shield = asset.ShieldPoints;
-            m_Armor = asset.ArmorPoints;
-            m_ResistanceOfArmor = asset.ArmorResitance;
-
+            m_MaxHitPoints = asset.HealthPoints;
+            m_MaxShield = asset.ShieldPoints;
+            m_MaxArmor = asset.ArmorPoints;
+            m_ResistanceOfArmor = asset.ArmorResistance;
+            m_TypeOfArmor = asset.TypeOfArmor;
             m_ScoreAmount = asset.Score;
         }
-
-        
     }
 }

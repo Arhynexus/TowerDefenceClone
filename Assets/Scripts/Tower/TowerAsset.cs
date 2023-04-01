@@ -13,6 +13,7 @@ namespace TowerDefenceClone
         public Sprite GUISprite;
         public Sprite Sprite;
         public TurretProperties TurretProperties;
+        public Color Color = Color.white;
 
         }
 }
