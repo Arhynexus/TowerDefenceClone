@@ -24,7 +24,7 @@ namespace TowerDefenceClone
         }
 
 
-        public void Initialise()
+        public int Initialise()
         {
             var score = MapCompletion.Instance.GetEpisodeScore(m_Episode);
             m_ResultPanel.gameObject.SetActive(score > 0);
@@ -32,6 +32,7 @@ namespace TowerDefenceClone
             {
                 m_ResultImages[i].color = Color.white;
             }
+            return score;
         }
     }
 }
