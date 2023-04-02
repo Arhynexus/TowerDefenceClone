@@ -34,7 +34,7 @@ namespace TowerDefenceClone
             }
         }
 
-        public static int GetTalCost()
+        public static int GetTotalCost()
         {
             int result = 0;
             foreach(var upgrade in Instance.m_Save)

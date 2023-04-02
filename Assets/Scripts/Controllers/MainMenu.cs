@@ -23,6 +23,7 @@ namespace TowerDefenceClone
             else
             {
                 FileHandler.Reset(MapCompletion.filename);
+                FileHandler.Reset(Upgrades.filename);
                 SceneManager.LoadScene(1);
             }
         }
@@ -30,6 +31,7 @@ namespace TowerDefenceClone
         public void OnButtonYesNewGame()
         {
             FileHandler.Reset(MapCompletion.filename);
+            FileHandler.Reset(Upgrades.filename);
             SceneManager.LoadScene(1);
         }
         public void OnButtonNoNewGame()

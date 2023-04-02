@@ -26,7 +26,7 @@ namespace TowerDefenceClone
         {
             print("Update");
             m_Money = MapCompletion.Instance.TotalScore;
-            m_Money -= Upgrades.GetTalCost();
+            m_Money -= Upgrades.GetTotalCost();
             if (m_Money < 0) m_Money = 0;
             m_MoneyText.text = m_Money.ToString();
             foreach (var slot in m_Sales)

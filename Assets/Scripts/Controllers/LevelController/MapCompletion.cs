@@ -24,6 +24,7 @@ namespace TowerDefenceClone
                 {
                     if (levelScore >= item.Score) 
                     {
+                        m_TotalScore += levelScore - item.Score;
                         item.Score = levelScore;
                         Saver<EpisodeScore[]>.Save(filename, m_CompletionData);
                     }

@@ -18,15 +18,15 @@ namespace TowerDefenceClone
         }
 
 
-        private static event Action<int> OnGoldpdate;
+        private static event Action<int> OnGoldUpdate;
         public static void OnGoldUpdateSubscribe(Action<int> act)
         {
-            OnGoldpdate += act;
+            OnGoldUpdate += act;
             act(Instance.m_Gold);
         }
         public static void OnGoldUpdateUnsubscribe(Action<int> act)
         {
-            OnGoldpdate -= act;
+            OnGoldUpdate -= act;
         }
         public static event Action<int> OnLifepdate;
         public static void OnLifeUpdateSubscribe(Action<int> act)
@@ -40,7 +40,7 @@ namespace TowerDefenceClone
         public void ChangeGold(int change)
         {
             m_Gold += change;
-            OnGoldpdate(m_Gold);
+            OnGoldUpdate(m_Gold);
         }
 
         internal void ChangeLife(int amount)
@@ -123,6 +123,16 @@ namespace TowerDefenceClone
         public static void OnLifeShieldUnSubscribe(Action<int> act)
         {
             OnShieldpdate -= act;
+        }
+        public static void OnLifeUpdateUnsubscribe(Action<int> act)
+        {
+            OnLifepdate -= act;
+        }
+
+        private void OnDestroy()
+        {
+            OnGoldUpdateUnsubscribe(ChangeGold);
+            OnLifeUpdateUnsubscribe(ChangeLife);
         }
 
         [SerializeField] private UpgradeAsset m_DamageUpgrade;

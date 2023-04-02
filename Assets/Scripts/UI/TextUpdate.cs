@@ -32,9 +32,10 @@ namespace TowerDefenceClone
         private void OnDestroy()
         {
             TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
+            TDPlayer.OnLifeShieldUnSubscribe(UpdateText);
         }
 
-        private void UpdateText(int money)
+        public void UpdateText(int money)
         {
             m_Text.text = money.ToString();
         }
