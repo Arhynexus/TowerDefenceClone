@@ -25,7 +25,6 @@ namespace TowerDefenceClone
                 {
                     LevelScore -= 1;
                 }
-                print(LevelScore);
                 MapCompletion.SaveEpisodeResult(LevelScore);
             });
 
@@ -38,8 +37,6 @@ namespace TowerDefenceClone
             TDPlayer.OnLifepdate += LifeScoreChange;
         }
 
-        
-        
         public void StopLevelActivity()
         {
             foreach(var enemy in FindObjectsOfType<Enemy>())

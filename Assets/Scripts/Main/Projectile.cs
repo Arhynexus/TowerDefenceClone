@@ -61,7 +61,7 @@ namespace CosmoSimClone
                     if(m_ProjectileType == ProjectileType.Standart)
                     {
                         dest.ApplyDamage(m_Damage, m_DamageType);
-                        dest.DownResistanceArmor(3, 20);
+                        dest.DownResistanceArmorForTime(3, 20);
                     }
                     if (m_ProjectileType == ProjectileType.AP)
                     {

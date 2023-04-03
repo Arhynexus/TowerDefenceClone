@@ -253,7 +253,7 @@ namespace CosmoSimClone
         /// </summary>
         /// <param name="duration">Длительность эффекта</param>
         /// <param name="amount">Объем снижаемой брони</param>
-        public void DownResistanceArmor(int duration, float amount)
+        public void DownResistanceArmorForTime(int duration, float amount)
         {
             if (m_Indestructible) return;
             if (m_DebuffArmorResistanceIsActive == true) return;
@@ -285,7 +285,7 @@ namespace CosmoSimClone
         /// </summary>
         /// <param name="duration">Длительность эффекта</param>
         /// <param name="amount">Объем снимаемых щитов</param>
-        public void DisableShields(int duration, float amount)
+        public void DisableShieldsForTime(int duration, float amount)
         {
             if (m_Indestructible == true) return;
             if (m_DisableShieldIsActive == true) return;
@@ -325,7 +325,7 @@ namespace CosmoSimClone
         /// </summary>
         /// <param name="duration">Длительность эффекта</param>
         /// <param name="amount">Объем в %</param>
-        public void MaxHealthDown(int duration, int amount)
+        public void MaxHealthDownForTime(int duration, int amount)
         {
             if (m_DebuffHealthIsActive == true) return;
             m_DebuffHealthTimer.Start(duration);

@@ -11,6 +11,7 @@ namespace CosmoSimClone
     public class LevelSequenceController : SingletonBase<LevelSequenceController>
     {
         public static string LevelMapScene = "LevelMap";
+        public static string MainMenuScene = "MainMenu";
 
         public Episode CurrentEpisode { get; private set; }
 
@@ -37,40 +38,22 @@ namespace CosmoSimClone
         public void RestartLevel()
         {
             SceneManager.LoadScene(CurrentEpisode.Levels[CurrentLevel]);
-            //SceneManager.LoadScene(0);
         }
 
         public void AdvanceLevel()
         {
-            LevelStatistics.ResetStats();
-            CurrentLevel++;
-            if (CurrentEpisode.Levels.Length <= CurrentLevel)
-            {
                 SceneManager.LoadScene(LevelMapScene);
-            }
-            else
-            {
-                SceneManager.LoadScene(CurrentEpisode.Levels[CurrentLevel]);
-            }
         }
 
         public void ToMainMenu()
         {
-            SceneManager.LoadScene(LevelMapScene);
+            SceneManager.LoadScene(MainMenuScene);
         }
         
         public void FinishCurrentLevel(bool success)
         {
             LasLevelResult = success;
-            //CalculateLevelStatistics();
             ResultPanelController.Instance.ShowResults(LevelStatistics, success);
-        }
-
-        private void CalculateLevelStatistics()
-        {
-            LevelStatistics.Score = ScoreController.Instance.CurrentScore;
-            LevelStatistics.Kills = ScoreController.Instance.Kills;
-            LevelStatistics.Time = (int) LevelController.Instance.LevelTime;
         }
     }
 }

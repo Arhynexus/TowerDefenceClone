@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -19,6 +17,10 @@ namespace CosmoSimClone
         [SerializeField] private Text m_BonusScoreForTime;
         [SerializeField] private Text m_TotalScore;
 
+        [SerializeField] private Image m_ResultImage;
+        [SerializeField] private Sprite m_WinImage;
+        [SerializeField] private Sprite m_LoseImage;
+
 
         private int m_BonusScore;
         private bool m_succes = false;
@@ -30,10 +32,6 @@ namespace CosmoSimClone
         public void ShowResults(PlayerStatistics playerStatistics, bool succes)
         {
             gameObject.SetActive(true);
-
-
-
-
             /* 
             int bonusTime = LevelController.Instance.ReferenceTime - playerStatistics.Time;
             if (bonusTime > 0)
@@ -63,6 +61,7 @@ namespace CosmoSimClone
 
             m_ButtonNextText.text = m_succes ? "Далее" : "Рестарт";
             m_ResultText.text = m_succes ? "Победа!" : "Проиграл!";
+            m_ResultImage.sprite = m_succes ? m_WinImage: m_LoseImage;
         }
 
         public void OnButtonNextAction()

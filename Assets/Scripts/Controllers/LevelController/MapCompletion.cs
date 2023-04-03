@@ -17,8 +17,7 @@ namespace TowerDefenceClone
         }
 
         [SerializeField] private EpisodeScore[] m_CompletionData;
-        [SerializeField] private int m_TotalScore;
-        public int TotalScore => m_TotalScore;
+        public int TotalScore { get; private set; }
 
         private new void Awake()
         {
@@ -26,7 +25,7 @@ namespace TowerDefenceClone
             Saver<EpisodeScore[]>.TryLoad(filename, ref m_CompletionData);
             foreach (var episodeScore in m_CompletionData)
             {
-                m_TotalScore += episodeScore.Score;
+                TotalScore += episodeScore.Score;
             }
         }
 
@@ -40,7 +39,7 @@ namespace TowerDefenceClone
                     {
                         if (levelScore >= item.Score)
                         {
-                            Instance.m_TotalScore += levelScore - item.Score;
+                            Instance.TotalScore += levelScore - item.Score;
                             item.Score = levelScore;
                             Saver<EpisodeScore[]>.Save(filename, Instance.m_CompletionData);
                         }

@@ -1127,17 +1127,6 @@ MonoBehaviour:
   - {fileID: 1911609238}
   m_CurrentWave: {fileID: 576718302}
   m_EnemyPrefab: {fileID: 889157893680678839, guid: 76bdb6d91fed0cd439ddda89559f9673, type: 3}
---- !u!114 &1063269023 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7315246186142803783, guid: 2fd91af74bcbc494c841678bca113735, type: 3}
-  m_PrefabInstance: {fileID: 7315246187172500952}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad394a0cc6bc6849af13042627208f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1075521575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1584,7 +1573,7 @@ MonoBehaviour:
   - {fileID: 1030265481}
   - {fileID: 997360333}
   - {fileID: 1768623563}
-  - {fileID: 1063269023}
+  - {fileID: 0}
 --- !u!4 &1442218418
 Transform:
   m_ObjectHideFlags: 0
@@ -1921,7 +1910,7 @@ MonoBehaviour:
   - {fileID: 781272695}
   - {fileID: 1675355995}
   - {fileID: 776276771}
-  - {fileID: 1063269023}
+  - {fileID: 0}
 --- !u!4 &1911609239
 Transform:
   m_ObjectHideFlags: 0
@@ -2391,6 +2380,10 @@ PrefabInstance:
       propertyPath: m_BuildSite
       value: 
       objectReference: {fileID: 1288458129}
+    - target: {fileID: 3607516354469755016, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1599014597}
     - target: {fileID: 8107127157272151570, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
       propertyPath: m_Name
       value: HUD
@@ -2483,9 +2476,5 @@ PrefabInstance:
       propertyPath: m_BuildSite
       value: 
       objectReference: {fileID: 1288458129}
-    - target: {fileID: 8107127158160059378, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1599014597}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
