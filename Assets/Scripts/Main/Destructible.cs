@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using TowerDefenceClone;
 using UnityEngine;
 using UnityEngine.Events;
-using TowerDefenceClone;
 
 namespace CosmoSimClone
 {
@@ -61,15 +61,20 @@ namespace CosmoSimClone
 
         [SerializeField] private int m_TeamId;
         public int TeamId => m_TeamId;
-        private bool m_DebuffArmorResistance = false;
-        private float m_DebuffArmorResistanceTimer;
-        private int resistance;
 
-        private bool m_DisableShield = false;
-        private float m_DebuffShieldDisableTimer;
+        private bool m_DebuffArmorResistanceIsActive = false;
+        private int m_ResistanceBase;
+
+        private bool m_DisableShieldIsActive = false;
         private int m_ShieldBase;
 
-        private float m_UnvulnerableEffectTimer;
+        private bool m_DebuffHealthIsActive = false;
+        private int m_HealthBase;
+
+        private Timer m_DebuffArmorResistanceTimer = new Timer(0);
+        private Timer m_DebuffShieldDisableTimer = new Timer(0);
+        private Timer m_UnvulnerableEffectTimer = new Timer(0);
+        private Timer m_DebuffHealthTimer = new Timer(0);
 
         /// <summary>
         /// Событие получения урона
@@ -81,21 +86,18 @@ namespace CosmoSimClone
         [SerializeField] private UnityEvent m_EventOnDeath;
         public UnityEvent EventOnDeath => m_EventOnDeath;
 
-
-
         protected virtual void Start()
         {
             SetStartHitPoints();
             ChangeHitPoints.Invoke();
-            resistance = m_ResistanceOfArmor;
+            m_ResistanceBase = m_ResistanceOfArmor;
             m_ShieldBase = m_MaxShield;
         }
 
         private void Update()
         {
-            DownArmorResistanceTimer();
-            DisableShieldTimer();
-            UnvulnerableIsActiveTimer();
+            UpdateTimers();
+            CheckEffectsTimeCondition();
         }
         protected virtual void OnEnable()
         {
@@ -171,34 +173,34 @@ namespace CosmoSimClone
         private static int CalculateDamageAfterArmor(int damage, DamageType Dtype, ArmorType Atype, int resistanceOfArmor)
         {
             {
-                switch(Atype)
+                switch (Atype)
                 {
                     case ArmorType.Magical:
-                        switch(Dtype)
+                        switch (Dtype)
                         {
-                            case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 100);  return damage;
+                            case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
                             case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
                             case DamageType.Void: return damage * 2;
                             case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
-                            default:  return damage;
+                            default: return damage;
                         }
                     case ArmorType.Physical:
-                        switch(Dtype)
+                        switch (Dtype)
                         {
                             case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 200); return damage;
                             case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
                             case DamageType.Void: return damage * 2;
                             case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
-                            default:  return damage;
+                            default: return damage;
                         }
                     case ArmorType.Void:
-                        switch(Dtype)
+                        switch (Dtype)
                         {
                             case DamageType.Magic: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
                             case DamageType.Physical: damage = damage - (int)(damage * resistanceOfArmor / 50); return damage;
                             case DamageType.Void: return damage;
                             case DamageType.Default: damage = damage - (int)(damage * resistanceOfArmor / 100); return damage;
-                            default:  return damage;
+                            default: return damage;
                         }
                 }
                 return damage;
@@ -251,19 +253,23 @@ namespace CosmoSimClone
         /// </summary>
         /// <param name="duration">Длительность эффекта</param>
         /// <param name="amount">Объем снижаемой брони</param>
-        public void DownResistanceArmor(int duration, float amount )
+        public void DownResistanceArmor(int duration, float amount)
         {
             if (m_Indestructible) return;
-            m_DebuffArmorResistanceTimer = duration;
+            if (m_DebuffArmorResistanceIsActive == true) return;
+            m_DebuffArmorResistanceTimer.Start(duration);
             float resistance = m_ResistanceOfArmor;
             int debuffResistance = (int)(resistance - (resistance - resistance / 100 * amount));
-           
+
             m_ResistanceOfArmor -= debuffResistance;
-            if (m_ResistanceOfArmor < 0) m_ResistanceOfArmor = 0;
-            m_DebuffArmorResistance = true;
+            if (m_ResistanceOfArmor <= 0) m_ResistanceOfArmor = 0;
+            m_DebuffArmorResistanceIsActive = true;
         }
 
-
+        /// <summary>
+        /// Наносим невовзратный урон броне
+        /// </summary>
+        /// <param name="m_StatusDamage">Урон</param>
         public void RemoveArmor(int m_StatusDamage)
         {
             if (m_CurrentArmor <= 0)
@@ -274,8 +280,6 @@ namespace CosmoSimClone
             m_CurrentArmor -= m_StatusDamage;
         }
 
-
-
         /// <summary>
         /// Снижает мощность щитов в % от максимального значения на короткий промежуток времени
         /// </summary>
@@ -284,10 +288,11 @@ namespace CosmoSimClone
         public void DisableShields(int duration, float amount)
         {
             if (m_Indestructible == true) return;
-            m_DebuffShieldDisableTimer = duration;
+            if (m_DisableShieldIsActive == true) return;
+            m_DebuffShieldDisableTimer.Start(duration);
             float currentMaxShield = m_CurrentShield;
             int shieldDebuff = (int)(currentMaxShield - (currentMaxShield - currentMaxShield / 100 * amount));
-            if(m_MaxShield > shieldDebuff)
+            if (m_MaxShield > shieldDebuff)
             {
                 m_ShieldBase = shieldDebuff;
             }
@@ -298,10 +303,13 @@ namespace CosmoSimClone
             m_MaxShield -= shieldDebuff;
             if (m_MaxShield < 0) m_MaxShield = 0;
             ChangeHitPoints.Invoke();
-            m_DisableShield = true;
+            m_DisableShieldIsActive = true;
         }
 
-
+        /// <summary>
+        /// Наносим невозвратный урон щитам
+        /// </summary>
+        /// <param name="m_StatusDamage">Урон</param>
         public void RemoveShield(int m_StatusDamage)
         {
             if (m_CurrentShield <= 0)
@@ -319,51 +327,85 @@ namespace CosmoSimClone
         /// <param name="amount">Объем в %</param>
         public void MaxHealthDown(int duration, int amount)
         {
+            if (m_DebuffHealthIsActive == true) return;
+            m_DebuffHealthTimer.Start(duration);
+            m_HealthBase = m_CurrentHealthPoints;
             m_CurrentHealthPoints -= MaxHitpoints - (MaxHitpoints / 100 * amount);
+            m_DebuffHealthIsActive = true;
         }
 
+        /// <summary>
+        /// Включаем неуязвимость объекта
+        /// </summary>
+        /// <param name="duration">Длительность эффекта в секундах</param>
         public void UnvulnerableIsActive(float duration)
         {
-            m_UnvulnerableEffectTimer = duration;
+            m_UnvulnerableEffectTimer.Start(duration);
             m_Indestructible = true;
         }
-
-        public void UnvulnerableIsActiveTimer()
+        private void UpdateTimers()
         {
-            if (m_Indestructible == true)
-            m_UnvulnerableEffectTimer -= Time.deltaTime;
-            if (m_UnvulnerableEffectTimer <= 0)
-            {
-                m_Indestructible = false;
-                return;
-            }
+            m_DebuffArmorResistanceTimer.RemoveTime(Time.deltaTime);
+            m_DebuffShieldDisableTimer.RemoveTime(Time.deltaTime);
+            m_UnvulnerableEffectTimer.RemoveTime(Time.deltaTime);
+            m_DebuffHealthTimer.RemoveTime(Time.deltaTime);
         }
 
+        /// <summary>
+        /// Проверяет завершение таймеров активных эффектов
+        /// </summary>
+        private void CheckEffectsTimeCondition()
+        {
+            UnvulnerableIsActiveTimer();
+            DownArmorResistanceTimer();
+            DisableShieldTimer();
+            MaxHealthDownTimer();
+        }
+
+        private void UnvulnerableIsActiveTimer()
+        {
+            if (m_Indestructible == true)
+            {
+                if (m_UnvulnerableEffectTimer.IsFinished)
+                {
+                    m_Indestructible = false;
+                }
+            }
+        }
         private void DownArmorResistanceTimer()
         {
-            if (m_DebuffArmorResistance == true)
+            if (m_DebuffArmorResistanceIsActive == true)
             {
-                m_DebuffArmorResistanceTimer -= Time.deltaTime;
-                if (m_DebuffArmorResistanceTimer <= 0)
+                if (m_DebuffArmorResistanceTimer.IsFinished)
                 {
-                    m_ResistanceOfArmor = resistance;
-                    m_DebuffArmorResistance = false;
-                    return;
+                    string notice = "Armor";
+                    print($"Debuff Removed {notice}");
+                    m_ResistanceOfArmor = m_ResistanceBase;
+                    m_DebuffArmorResistanceIsActive = false;
                 }
             }
         }
         private void DisableShieldTimer()
         {
-            if (m_DisableShield == true)
+            if (m_DisableShieldIsActive == true)
             {
-                m_DebuffShieldDisableTimer -= Time.deltaTime;
-                if (m_DebuffShieldDisableTimer <= 0)
+                if (m_DebuffShieldDisableTimer.IsFinished)
                 {
                     m_MaxShield += m_ShieldBase;
                     if (m_MaxShield > m_CurrentShield) m_MaxShield = m_CurrentShield;
                     ChangeHitPoints.Invoke();
-                    m_DisableShield = false;
-                    return;
+                    m_DisableShieldIsActive = false;
+                }
+            }
+        }
+        private void MaxHealthDownTimer()
+        {
+            if (m_DebuffHealthIsActive == true)
+            {
+                if (m_DebuffHealthTimer.IsFinished)
+                {
+                    m_CurrentHealthPoints += m_HealthBase;
+                    m_DebuffHealthIsActive = false;
                 }
             }
         }
