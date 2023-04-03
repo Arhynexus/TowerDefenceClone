@@ -10,17 +10,13 @@ namespace CosmoSimClone
     /// </summary>
     public class Destructible : Entity
     {
-        #region Properties
+        public const int TeamIdNeutral = 0;
+
         /// <summary>
         /// Игноририрование объектом повреждений.
         /// </summary>
         [SerializeField] private bool m_Indestructible;
         public bool IsIndestructible => m_Indestructible;
-
-        /// <summary>
-        /// Количество начисляемых очков при смерти объекта
-        /// </summary>
-        [SerializeField] private int m_ScoreAmount;
 
         /// <summary>
         /// Стартовое значение щитов
@@ -60,21 +56,56 @@ namespace CosmoSimClone
         private int m_CurrentHealthPoints;
         public int CurrentHealthPoints => m_CurrentHealthPoints;
 
-        private VisualEffects explosionEffect;
-        #endregion;
+        private static HashSet<Destructible> m_AllDestructibles;
+        public static IReadOnlyCollection<Destructible> AllDestructibles => m_AllDestructibles;
 
-        #region Unity Events
+        [SerializeField] private int m_TeamId;
+        public int TeamId => m_TeamId;
+        private bool m_DebuffArmorResistance = false;
+        private float m_DebuffArmorResistanceTimer;
+        private int resistance;
+
+        private bool m_DisableShield = false;
+        private float m_DebuffShieldDisableTimer;
+        private int m_ShieldBase;
+
+        private float m_UnvulnerableEffectTimer;
 
         /// <summary>
         /// Событие получения урона
         /// </summary>
         public UnityEvent ChangeHitPoints;
+        /// <summary>
+        /// Событие смерти объекта
+        /// </summary>
+        [SerializeField] private UnityEvent m_EventOnDeath;
+        public UnityEvent EventOnDeath => m_EventOnDeath;
+
+
+
         protected virtual void Start()
         {
             SetStartHitPoints();
             ChangeHitPoints.Invoke();
             resistance = m_ResistanceOfArmor;
             m_ShieldBase = m_MaxShield;
+        }
+
+        private void Update()
+        {
+            DownArmorResistanceTimer();
+            DisableShieldTimer();
+            UnvulnerableIsActiveTimer();
+        }
+        protected virtual void OnEnable()
+        {
+            if (m_AllDestructibles == null) m_AllDestructibles = new HashSet<Destructible>();
+            m_AllDestructibles.Add(this);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            m_AllDestructibles.Remove(this);
         }
 
         /// <summary>
@@ -87,29 +118,18 @@ namespace CosmoSimClone
             m_CurrentShield = m_MaxShield;
         }
 
-        private void Update()
-        {
-            DownArmorResistanceTimer();
-            DisableShieldTimer();
-            UnvulnerableIsActiveTimer();
-        }
-        #endregion
-
-        #region Public API
         /// <summary>
         /// Применение урона объекту.
         /// </summary>
-        /// <param name="damage">Урон, наносимый объекту</param>
+        /// <param name="enterdamage">Входящий урон</param>
+        /// <param name="type">Тип входящего урона</param>
         public void ApplyDamage(int enterdamage, DamageType type)
         {
-            int damageAfterArmorResistance = CalculateDamage(enterdamage, type, m_TypeOfArmor, m_ResistanceOfArmor);
-            print(damageAfterArmorResistance);
             if (m_Indestructible) return;
-            if (damageAfterArmorResistance == 0) return;
-
             int shield = m_CurrentShield;
-
             int damageToshield = enterdamage;
+            int damageAfterArmorResistance = CalculateDamageAfterArmor(enterdamage, type, m_TypeOfArmor, m_ResistanceOfArmor);
+            if (damageAfterArmorResistance == 0) return;
 
             m_CurrentShield -= damageToshield;
 
@@ -140,7 +160,15 @@ namespace CosmoSimClone
             if (m_CurrentHealthPoints <= 0) OnDeath();
         }
 
-        private static int CalculateDamage(int damage, DamageType Dtype, ArmorType Atype, int resistanceOfArmor)
+        /// <summary>
+        /// Считает входящий урон по здоровью после прохождения снарядом брони
+        /// </summary>
+        /// <param name="damage">Базовый урон снаряда</param>
+        /// <param name="Dtype">Тип урона</param>
+        /// <param name="Atype">Тип брони</param>
+        /// <param name="resistanceOfArmor">Сопротивление брони</param>
+        /// <returns>Возвращает входящий урон</returns>
+        private static int CalculateDamageAfterArmor(int damage, DamageType Dtype, ArmorType Atype, int resistanceOfArmor)
         {
             {
                 switch(Atype)
@@ -176,45 +204,15 @@ namespace CosmoSimClone
                 return damage;
             }
         }
-
-        #endregion
-
-
-        #region Actions
         /// <summary>
         /// Переопределяемый метод события уничтожения объекта, когда хитпоинты равны или ниже нуля.
         /// </summary>
         protected virtual void OnDeath()
         {
             m_EventOnDeath.Invoke();
-            //m_Score.AddScore(m_ScoreAmount, m_TeamId);
-            //m_Score.AddKill(m_TeamId);
-            if (explosionEffect != null) explosionEffect.ExplosionSpawn();
             Destroy(gameObject);
         }
 
-        private static HashSet<Destructible> m_AllDestructibles;
-
-        public static IReadOnlyCollection<Destructible> AllDestructibles => m_AllDestructibles;
-
-        protected virtual void OnEnable()
-        {
-            if(m_AllDestructibles == null) m_AllDestructibles = new HashSet<Destructible>();
-
-            m_AllDestructibles.Add(this);
-        }
-
-        protected virtual void OnDestroy()
-        {
-            m_AllDestructibles.Remove(this);
-        }
-
-        public const int TeamIdNeutral = 0;
-
-        [SerializeField] private int m_TeamId;
-        public int TeamId => m_TeamId;
-
-        #region RestoreEffects
         /// <summary>
         /// Метод восстановления щитов корабля
         /// </summary>
@@ -247,15 +245,6 @@ namespace CosmoSimClone
             if (m_CurrentHealthPoints > m_MaxHitPoints) m_CurrentHealthPoints = m_MaxHitPoints;
             ChangeHitPoints.Invoke();
         }
-        #endregion
-
-        #region DebuffEffects
-
-        #region ArmorDebuffs
-
-        private bool m_DebuffArmorResistance = false;
-        private float m_DebuffArmorResistanceTimer;
-        private int resistance;
 
         /// <summary>
         /// Снижает сопротивляемость брони в % от максимального значения на короткий промежуток времени
@@ -274,19 +263,6 @@ namespace CosmoSimClone
             m_DebuffArmorResistance = true;
         }
 
-        private void DownArmorResistanceTimer()
-        {
-            if (m_DebuffArmorResistance == true)
-            {
-                m_DebuffArmorResistanceTimer -= Time.deltaTime;
-                if (m_DebuffArmorResistanceTimer <= 0)
-                {
-                    m_ResistanceOfArmor = resistance;
-                    m_DebuffArmorResistance = false;
-                    return;
-                }
-            }
-        }
 
         public void RemoveArmor(int m_StatusDamage)
         {
@@ -297,13 +273,8 @@ namespace CosmoSimClone
             }
             m_CurrentArmor -= m_StatusDamage;
         }
-        #endregion
 
-        #region ShieldDebuffs
 
-        private bool m_DisableShield = false;
-        private float m_DebuffShieldDisableTimer;
-        private int m_ShieldBase;
 
         /// <summary>
         /// Снижает мощность щитов в % от максимального значения на короткий промежуток времени
@@ -314,8 +285,8 @@ namespace CosmoSimClone
         {
             if (m_Indestructible == true) return;
             m_DebuffShieldDisableTimer = duration;
-            float maxShield = m_CurrentShield;
-            int shieldDebuff = (int)(maxShield - (maxShield - maxShield / 100 * amount));
+            float currentMaxShield = m_CurrentShield;
+            int shieldDebuff = (int)(currentMaxShield - (currentMaxShield - currentMaxShield / 100 * amount));
             if(m_MaxShield > shieldDebuff)
             {
                 m_ShieldBase = shieldDebuff;
@@ -330,23 +301,8 @@ namespace CosmoSimClone
             m_DisableShield = true;
         }
 
-        private void DisableShieldTimer()
-        {
-            if (m_DisableShield == true)
-            {
-                m_DebuffShieldDisableTimer -= Time.deltaTime;
-                if (m_DebuffShieldDisableTimer <= 0)
-                {
-                    m_MaxShield += m_ShieldBase;
-                    if(m_MaxShield > m_CurrentShield) m_MaxShield = m_CurrentShield;
-                    ChangeHitPoints.Invoke();
-                    m_DisableShield = false;
-                    return;
-                }
-            }
-        }
 
-        internal void RemoveShield(int m_StatusDamage)
+        public void RemoveShield(int m_StatusDamage)
         {
             if (m_CurrentShield <= 0)
             {
@@ -366,14 +322,6 @@ namespace CosmoSimClone
             m_CurrentHealthPoints -= MaxHitpoints - (MaxHitpoints / 100 * amount);
         }
 
-        #endregion
-
-        #endregion
-
-        #region BuffEffects
-
-        private float m_UnvulnerableEffectTimer;
-        
         public void UnvulnerableIsActive(float duration)
         {
             m_UnvulnerableEffectTimer = duration;
@@ -390,12 +338,35 @@ namespace CosmoSimClone
                 return;
             }
         }
-        #endregion
-        #endregion
 
-        [SerializeField] private UnityEvent m_EventOnDeath;
-        public UnityEvent EventOnDeath => m_EventOnDeath;
-
+        private void DownArmorResistanceTimer()
+        {
+            if (m_DebuffArmorResistance == true)
+            {
+                m_DebuffArmorResistanceTimer -= Time.deltaTime;
+                if (m_DebuffArmorResistanceTimer <= 0)
+                {
+                    m_ResistanceOfArmor = resistance;
+                    m_DebuffArmorResistance = false;
+                    return;
+                }
+            }
+        }
+        private void DisableShieldTimer()
+        {
+            if (m_DisableShield == true)
+            {
+                m_DebuffShieldDisableTimer -= Time.deltaTime;
+                if (m_DebuffShieldDisableTimer <= 0)
+                {
+                    m_MaxShield += m_ShieldBase;
+                    if (m_MaxShield > m_CurrentShield) m_MaxShield = m_CurrentShield;
+                    ChangeHitPoints.Invoke();
+                    m_DisableShield = false;
+                    return;
+                }
+            }
+        }
         protected void Use(EnemyAsset asset)
         {
             m_MaxHitPoints = asset.HealthPoints;
@@ -403,7 +374,6 @@ namespace CosmoSimClone
             m_MaxArmor = asset.ArmorPoints;
             m_ResistanceOfArmor = asset.ArmorResistance;
             m_TypeOfArmor = asset.TypeOfArmor;
-            m_ScoreAmount = asset.Score;
         }
     }
 }

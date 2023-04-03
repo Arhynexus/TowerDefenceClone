@@ -16,30 +16,6 @@ namespace TowerDefenceClone
             public int Score;
         }
 
-        private void SaveResult(Episode currentEpisode, int levelScore)
-        {
-            foreach (var item in m_CompletionData)
-            {
-                if (item.Episode == currentEpisode)
-                {
-                    if (levelScore >= item.Score) 
-                    {
-                        m_TotalScore += levelScore - item.Score;
-                        item.Score = levelScore;
-                        Saver<EpisodeScore[]>.Save(filename, m_CompletionData);
-                    }
-                }
-            }
-        }
-
-        public static void SaveEpisodeResult(int levelScore)
-        {
-            if(Instance)
-            {
-                Instance.SaveResult(LevelSequenceController.Instance.CurrentEpisode, levelScore);
-            }
-        }
-
         [SerializeField] private EpisodeScore[] m_CompletionData;
         [SerializeField] private int m_TotalScore;
         public int TotalScore => m_TotalScore;
@@ -51,6 +27,25 @@ namespace TowerDefenceClone
             foreach (var episodeScore in m_CompletionData)
             {
                 m_TotalScore += episodeScore.Score;
+            }
+        }
+
+        public static void SaveEpisodeResult(int levelScore)
+        {
+            if (Instance)
+            {
+                foreach (var item in Instance.m_CompletionData)
+                {
+                    if (item.Episode == LevelSequenceController.Instance.CurrentEpisode)
+                    {
+                        if (levelScore >= item.Score)
+                        {
+                            Instance.m_TotalScore += levelScore - item.Score;
+                            item.Score = levelScore;
+                            Saver<EpisodeScore[]>.Save(filename, Instance.m_CompletionData);
+                        }
+                    }
+                }
             }
         }
 

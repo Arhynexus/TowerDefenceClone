@@ -14,7 +14,6 @@ namespace TowerDefenceClone
 
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            print($"Нажато {transform.root.name}");
             OnClickEvent(transform.root);
         }
     }

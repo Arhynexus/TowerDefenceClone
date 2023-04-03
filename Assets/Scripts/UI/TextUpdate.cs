@@ -5,13 +5,18 @@ namespace TowerDefenceClone
 {
     public class TextUpdate : MonoBehaviour
     {
-        public enum UpdateSource { Gold, Life, Shield }
+        public enum UpdateSource
+        {
+            Gold,
+            Life,
+            Shield
+        }
 
         public UpdateSource Source = UpdateSource.Gold;
         
-        private Text m_Text; 
-        
-        // Start is called before the first frame update
+        private Text m_Text;
+
+
         void Start()
         {
             m_Text = GetComponent<Text>();
@@ -39,7 +44,5 @@ namespace TowerDefenceClone
         {
             m_Text.text = money.ToString();
         }
-
-        
     }
 }

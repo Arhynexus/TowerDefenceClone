@@ -11,9 +11,14 @@ namespace TowerDefenceClone
 
         private void Start()
         {
+            DrawLevels();
+        }
+
+        private void DrawLevels()
+        {
             var drawLevel = 0;
             var score = 1;
-            while (score != 0 && drawLevel < m_Levels.Length) 
+            while (score != 0 && drawLevel < m_Levels.Length)
             {
                 score = m_Levels[drawLevel].Initialise();
                 drawLevel += 1;
@@ -24,7 +29,7 @@ namespace TowerDefenceClone
                 m_Levels[i].gameObject.SetActive(false);
             }
 
-            for (int i = 0; i< m_BranchLevels.Length; i++)
+            for (int i = 0; i < m_BranchLevels.Length; i++)
             {
                 m_BranchLevels[i].TryActivate();
             }

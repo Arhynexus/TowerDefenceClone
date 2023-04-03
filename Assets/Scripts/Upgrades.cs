@@ -6,6 +6,7 @@ namespace TowerDefenceClone
     public class Upgrades : SingletonBase<Upgrades>
     {
         public const string filename = "upgrades.dat";
+        [SerializeField] UpgradeSave[] m_Save;
 
         [Serializable]
         private class UpgradeSave
@@ -19,8 +20,6 @@ namespace TowerDefenceClone
             base.Awake();
             Saver<UpgradeSave[]>.TryLoad(filename, ref m_Save);
         }
-
-        [SerializeField] UpgradeSave[] m_Save;
         public static void BuyUpgrade(UpgradeAsset asset)
         {
             foreach (var upgrade in Instance.m_Save)
@@ -29,7 +28,6 @@ namespace TowerDefenceClone
                 {
                     upgrade.Level += 1;
                     Saver<UpgradeSave[]>.Save(filename, Instance.m_Save);
-
                 }
             }
         }
