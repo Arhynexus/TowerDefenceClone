@@ -63,11 +63,7 @@ namespace TowerDefenceClone
         {
             ChangeGold(-TowerAsset.GoldCost);
             var tower = Instantiate(m_TowerPrefab, m_BuildSite.position, Quaternion.identity);
-            var sprite = tower.GetComponentInChildren<SpriteRenderer>();
-            sprite.sprite = TowerAsset.Sprite;
-            sprite.color = TowerAsset.Color;
-            
-            tower.GetComponentInChildren<Turret>().AssignLoadOut(TowerAsset.TurretProperties);
+            tower.Use(TowerAsset);
             Destroy(m_BuildSite.gameObject);
         }
 
@@ -75,9 +71,8 @@ namespace TowerDefenceClone
         [SerializeField] private UpgradeAsset m_ShieldUpgrade;
         [SerializeField] private GameObject m_ShieldPanel;
 
-        private new void Awake()
+        private void Start()
         {
-            base.Awake();
             var healthUpgradeLevel = Upgrades.GetUpgradeLevel(m_HealthUpgrade);
             TakeDamage(-healthUpgradeLevel * 5);
             if (m_ShieldUpgrade && m_ShieldPanel)

@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3532a7e39b4b8742be3786d51ae324e, type: 3}
-  m_Name: MagicTower
+  m_Name: MagicTower2
   m_EditorClassIdentifier: 
-  GoldCost: 120
-  GUISprite: {fileID: 21300000, guid: 4ea84224d203dbb428e898c81bb94aac, type: 3}
-  Sprite: {fileID: 21300000, guid: 298636722737c4b41816506cd4bc994f, type: 3}
-  TurretProperties: {fileID: 11400000, guid: 652d57334c2bb774c81ee932d8bff580, type: 2}
+  GoldCost: 150
+  GUISprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  Sprite: {fileID: 21300000, guid: 961542bf834d173448be6e9b235a3b66, type: 3}
+  TurretProperties: {fileID: 11400000, guid: 81368ba225aec9c4fb3748eeaa9f38ca, type: 2}
   Color: {r: 1, g: 0, b: 0.87459564, a: 1}
   m_RequiredUpgrade: {fileID: 11400000, guid: 59fbbd35bd19d274191c20574d33e26c, type: 2}
-  m_RequiredUpgradeLevel: 1
-  UpgradesTo:
-  - {fileID: 11400000, guid: cc001fc91e19aa74d8b9d27df8147697, type: 2}
+  m_RequiredUpgradeLevel: 2
+  UpgradesTo: []

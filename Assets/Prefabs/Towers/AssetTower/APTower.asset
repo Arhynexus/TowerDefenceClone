@@ -17,3 +17,5 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 298636722737c4b41816506cd4bc994f, type: 3}
   TurretProperties: {fileID: 11400000, guid: 652d57334c2bb774c81ee932d8bff580, type: 2}
   Color: {r: 0.09411765, g: 0.6784314, b: 0.16078432, a: 1}
+  m_RequiredUpgrade: {fileID: 11400000, guid: 5bcaad8b51f6d4741ac2949d28da9399, type: 2}
+  m_RequiredUpgradeLevel: 1
