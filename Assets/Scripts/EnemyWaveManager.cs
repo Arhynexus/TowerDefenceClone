@@ -14,6 +14,8 @@ namespace TowerDefenceClone
 
         private int m_ActiveEnemyCount;
 
+        public static event Action<Enemy> OnEnemySpawn;
+
         private void RecordEnemyDead ()
         {
             if (--m_ActiveEnemyCount == 0)

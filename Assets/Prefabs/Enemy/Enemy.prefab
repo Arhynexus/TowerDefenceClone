@@ -152,15 +152,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Nickname: 
   m_Indestructible: 0
-  m_ScoreAmount: 1
-  m_Shield: 0
-  m_Armor: 0
+  m_MaxShield: 0
+  m_MaxArmor: 0
+  m_TypeOfArmor: 0
   m_ResistanceOfArmor: 0
-  m_HitPoints: 5
+  m_MaxHitPoints: 0
+  m_TeamId: 0
   ChangeHitPoints:
     m_PersistentCalls:
       m_Calls: []
-  m_TeamId: 0
   m_EventOnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -315,7 +315,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: e757e8d9cc848d54f8ae5e8b4e23b7df, type: 3}
   m_Color: {r: 0, g: 0.6775004, b: 0.990566, a: 1}
   m_FlipX: 0

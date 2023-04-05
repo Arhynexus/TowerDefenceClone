@@ -56,8 +56,11 @@ namespace TowerDefenceClone
             }
             else
             {
-                m_ActiveControl.Clear();
-                ClearControls();
+                if (m_ActiveControl != null)
+                {
+                    m_ActiveControl.Clear();
+                    ClearControls();
+                }
                 gameObject.SetActive(false);
             }
         }
