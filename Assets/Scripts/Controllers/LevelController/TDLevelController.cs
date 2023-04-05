@@ -25,21 +25,18 @@ namespace TowerDefenceClone
                 {
                     LevelScore -= 1;
                 }
-                print(LevelScore);
                 MapCompletion.SaveEpisodeResult(LevelScore);
             });
 
-            void LifeSocreChange(int _)
+            void LifeScoreChange(int _)
             {
                 LevelScore -= 1;
-                TDPlayer.OnLifepdate -= LifeSocreChange;
+                TDPlayer.OnLifepdate -= LifeScoreChange;
             }
 
-            TDPlayer.OnLifepdate += LifeSocreChange;
+            TDPlayer.OnLifepdate += LifeScoreChange;
         }
 
-        
-        
         public void StopLevelActivity()
         {
             foreach(var enemy in FindObjectsOfType<Enemy>())
@@ -57,6 +54,7 @@ namespace TowerDefenceClone
             DisableAll<EnemySpawner>();
             DisableAll<Projectile>();
             DisableAll<Tower>();
+            DisableAll<NextWaveGUI>();
         }
     }
 }

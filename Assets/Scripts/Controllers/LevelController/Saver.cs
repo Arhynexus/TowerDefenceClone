@@ -7,11 +7,10 @@ namespace TowerDefenceClone
     [Serializable]
     public class Saver<T>
     {
-        
         public static void TryLoad(string filename, ref T data)
         {
             var path = FileHandler.Path(filename);
-            
+            Debug.Log(path);
             if (File.Exists(path))
             {
                 var datastring = File.ReadAllText(path);

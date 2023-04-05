@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace CosmoSimClone
 {
-
-
-
     public class PlayerStatistics
     {
         public int Kills;

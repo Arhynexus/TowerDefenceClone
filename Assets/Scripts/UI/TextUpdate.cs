@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,13 +5,18 @@ namespace TowerDefenceClone
 {
     public class TextUpdate : MonoBehaviour
     {
-        public enum UpdateSource { Gold, Life }
+        public enum UpdateSource
+        {
+            Gold,
+            Life,
+            Shield
+        }
 
         public UpdateSource Source = UpdateSource.Gold;
         
-        private Text m_Text; 
-        
-        // Start is called before the first frame update
+        private Text m_Text;
+
+
         void Start()
         {
             m_Text = GetComponent<Text>();
@@ -26,19 +28,21 @@ namespace TowerDefenceClone
 
                 case UpdateSource.Life: TDPlayer.OnLifeUpdateSubscribe(UpdateText);
                     break;
+
+                case UpdateSource.Shield: TDPlayer.OnShieldSubscribe(UpdateText);
+                    break;
             }
         }
 
         private void OnDestroy()
         {
-                TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
+            TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
+            TDPlayer.OnLifeShieldUnSubscribe(UpdateText);
         }
 
-        private void UpdateText(int money)
+        public void UpdateText(int money)
         {
             m_Text.text = money.ToString();
         }
-
-        
     }
 }

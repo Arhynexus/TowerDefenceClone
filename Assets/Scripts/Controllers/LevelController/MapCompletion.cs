@@ -16,49 +16,48 @@ namespace TowerDefenceClone
             public int Score;
         }
 
-        private void SaveResult(Episode currentEpisode, int levelScore)
-        {
-            foreach (var item in m_CompletionData)
-            {
-                if (item.Episode == currentEpisode)
-                {
-                    if (levelScore >= item.Score) 
-                    {
-                        item.Score = levelScore;
-                        Saver<EpisodeScore[]>.Save(filename, m_CompletionData);
-                    }
-                }
-            }
-        }
-
-        public static void SaveEpisodeResult(int levelScore)
-        {
-            if(Instance)
-            {
-                Instance.SaveResult(LevelSequenceController.Instance.CurrentEpisode, levelScore);
-            }
-        }
-
         [SerializeField] private EpisodeScore[] m_CompletionData;
+        public int TotalScore { get; private set; }
 
         private new void Awake()
         {
             base.Awake();
             Saver<EpisodeScore[]>.TryLoad(filename, ref m_CompletionData);
+            foreach (var episodeScore in m_CompletionData)
+            {
+                TotalScore += episodeScore.Score;
+            }
         }
 
-        public bool TryIndex(int id, out Episode episode, out int score)
+        public static void SaveEpisodeResult(int levelScore)
         {
-            if (id >= 0 && id < m_CompletionData.Length)
+            if (Instance)
             {
-                episode = m_CompletionData[id].Episode;
-                score = m_CompletionData[id].Score;
-
-                return true;
+                foreach (var item in Instance.m_CompletionData)
+                {
+                    if (item.Episode == LevelSequenceController.Instance.CurrentEpisode)
+                    {
+                        if (levelScore >= item.Score)
+                        {
+                            Instance.TotalScore += levelScore - item.Score;
+                            item.Score = levelScore;
+                            Saver<EpisodeScore[]>.Save(filename, Instance.m_CompletionData);
+                        }
+                    }
+                }
             }
-            episode = null;
-            score = 0;
-            return false;
+        }
+
+        public int GetEpisodeScore(Episode m_Episode)
+        {
+            foreach (var data in m_CompletionData)
+            {
+                if (data.Episode == m_Episode)
+                {
+                    return data.Score;
+                }
+            }
+            return 0;
         }
     }
 }

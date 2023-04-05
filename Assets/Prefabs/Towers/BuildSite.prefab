@@ -307,3 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ddc433d7e405646ac8bdd68a1998b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildableTowers:
+  - {fileID: 11400000, guid: 7746cf0ff60996f4d820cf91068991e9, type: 2}
+  - {fileID: 11400000, guid: 4f2d5cc830b722d4fa619b8ebe1c79a5, type: 2}

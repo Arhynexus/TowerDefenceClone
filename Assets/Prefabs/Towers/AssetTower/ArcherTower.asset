@@ -16,3 +16,4 @@ MonoBehaviour:
   GUISprite: {fileID: 21300000, guid: ef25b92a8e4b2644b8420de820e6c11f, type: 3}
   Sprite: {fileID: 21300000, guid: 0d1dc428e29b59d4da665429794be749, type: 3}
   TurretProperties: {fileID: 11400000, guid: 3cf9197beea67a942aa4cb7bfcef5eb9, type: 2}
+  Color: {r: 1, g: 1, b: 1, a: 1}

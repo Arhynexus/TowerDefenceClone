@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: AntiShiledProjectile
   m_EditorClassIdentifier: 
   ProjectileType: 3
+  DamageType: 3
   Damage: 4
+  DefaultDamage: 4
   StatusDamage: 15
+  DefaultStatusDamage: 15
   Radius: 0
   Velocity: 15
   LifeTime: 3

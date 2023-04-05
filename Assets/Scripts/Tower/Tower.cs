@@ -1,4 +1,5 @@
 using CosmoSimClone;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,21 +11,21 @@ namespace TowerDefenceClone
     public class Tower : MonoBehaviour
     {
         [SerializeField] private float m_Radius;
-        private Turret[] turrets;
-        private Destructible target;
+        private Turret[] m_Turrets;
+        private Destructible m_Target;
         void Start()
         {
-            turrets = GetComponentsInChildren<Turret>();
+            m_Turrets = GetComponentsInChildren<Turret>();
         }
 
         protected virtual void Update()
         {
-            if (target)
+            if (m_Target)
             {
-                Vector2 targetVector = target.transform.position - transform.position;
+                Vector2 targetVector = m_Target.transform.position - transform.position;
                 if (targetVector.magnitude < m_Radius)
                 {
-                    foreach (var turret in turrets)
+                    foreach (var turret in m_Turrets)
                     {
                         if (turret.Mode == TurretMode.Auto)
                         {
@@ -80,7 +81,7 @@ namespace TowerDefenceClone
                 }
                 else
                 {
-                    target = null;
+                    m_Target = null;
                 }
             }
             else
@@ -88,13 +89,26 @@ namespace TowerDefenceClone
                 var enter = Physics2D.OverlapCircle(transform.position, m_Radius);
                 if (enter)
                 {
-                    target = enter.transform.root.GetComponent<Destructible>();
+                    m_Target = enter.transform.root.GetComponent<Destructible>();
                 }
             }
         }
+        public void Use(TowerAsset towerAsset)
+        {
+            var sprite = GetComponentInChildren<SpriteRenderer>();
+            sprite.sprite = towerAsset.Sprite;
+            sprite.color = towerAsset.Color;
+            m_Turrets = GetComponentsInChildren<Turret>();
+            foreach (var turret in m_Turrets)
+            {
+                turret.AssignLoadOut(towerAsset.TurretProperties);
+            }
+            var buildSite = GetComponentInChildren<BuildSite>();
+            buildSite.SetBuildableTowers(towerAsset.UpgradesTo);
+        }
 
 #if UNITY_EDITOR
-        
+
 
         private void OnDrawGizmosSelected()
         {

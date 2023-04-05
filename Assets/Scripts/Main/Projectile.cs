@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TowerDefenceClone;
 
@@ -33,7 +30,8 @@ namespace CosmoSimClone
         /// </summary>
         [SerializeField] private AssetProjectile m_Asset;
 
-        [SerializeField] private ProjectileType m_Type;
+        [SerializeField] private ProjectileType m_ProjectileType;
+        [SerializeField] private DamageType m_DamageType;
 
         [Header("¬нешний вид и Ёффекты")]
         /// <summary>
@@ -60,18 +58,19 @@ namespace CosmoSimClone
 
                 if(dest != null && dest != m_Parent)
                 {
-                    if(m_Type == ProjectileType.Standart)
+                    if(m_ProjectileType == ProjectileType.Standart)
                     {
-                        dest.ApplyDamage(m_Damage);
+                        dest.ApplyDamage(m_Damage, m_DamageType);
+                        dest.DownResistanceArmorForTime(3, 20);
                     }
-                    if (m_Type == ProjectileType.AP)
+                    if (m_ProjectileType == ProjectileType.AP)
                     {
-                        dest.ApplyDamage(m_Damage);
+                        dest.ApplyDamage(m_Damage, m_DamageType);
                         dest.RemoveArmor(m_StatusDamage);
                     }
-                    if (m_Type == ProjectileType.AS)
+                    if (m_ProjectileType == ProjectileType.AS)
                     {
-                        dest.ApplyDamage(m_Damage);
+                        dest.ApplyDamage(m_Damage, m_DamageType);
                         dest.RemoveShield(m_StatusDamage);
                     }
                 }
@@ -125,7 +124,8 @@ namespace CosmoSimClone
             m_Velocity = m_AssetProjectile.Velocity;
             m_Radius = m_AssetProjectile.Radius;
             m_LifeTime = m_AssetProjectile.LifeTime;
-            m_Type = m_AssetProjectile.ProjectileType;
+            m_ProjectileType = m_AssetProjectile.ProjectileType;
+            m_DamageType = m_AssetProjectile.DamageType;
         }
     }
 }

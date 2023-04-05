@@ -18,9 +18,10 @@ MonoBehaviour:
   MoveSpeed: 1
   Radius: 0.3
   HealthPoints: 50
-  ShieldPoints: 50
+  ShieldPoints: 10
   ArmorPoints: 50
-  ArmorResitance: 30
+  TypeOfArmor: 0
+  ArmorResistance: 30
   Score: 1
   Damage: 2
   Gold: 10

@@ -155,7 +155,6 @@ namespace CosmoSimClone
                     m_Targeter.gameObject.SetActive(false);
                     if (IsEvading == false)
                     {
-                        //MakeLead();
                         float dist = Vector2.Distance(transform.position, m_SelectedTarget.transform.position);
                         m_MovePosition = m_SelectedTarget.transform.position + m_LeadPointForMovePosition;
                         if (dist < 3f)
@@ -175,7 +174,7 @@ namespace CosmoSimClone
                     {
                         bool IsInsidePatrolZone = (m_PatrolPoint.transform.position - transform.position).sqrMagnitude < m_PatrolPoint.Radius * m_PatrolPoint.Radius;
                         m_NavigationLinear = m_currentThrust;
-                        if (IsInsidePatrolZone == true)
+                        if (IsInsidePatrolZone)
                         {
                             GetNewPoint();
                         }

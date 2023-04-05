@@ -13,6 +13,11 @@ namespace TowerDefenceClone
         public Sprite GUISprite;
         public Sprite Sprite;
         public TurretProperties TurretProperties;
-
+        public Color Color = Color.white;
+        [SerializeField] private UpgradeAsset m_RequiredUpgrade;
+        [SerializeField] private int m_RequiredUpgradeLevel;
+        public bool IsAvailable() => !m_RequiredUpgrade || 
+            m_RequiredUpgradeLevel <= Upgrades.GetUpgradeLevel(m_RequiredUpgrade);
+        public TowerAsset[] UpgradesTo;
         }
 }

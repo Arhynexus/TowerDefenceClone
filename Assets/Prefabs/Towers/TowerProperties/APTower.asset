@@ -15,7 +15,7 @@ MonoBehaviour:
   m_TurretMode: 2
   m_projectilePrefab: {fileID: 8299681612657692830, guid: 31a4e991f209c4d42a6976f7a9df36ca, type: 3}
   m_assetProjectile: {fileID: 11400000, guid: cd53187897954a948bc5c107c7d0cfaf, type: 2}
-  m_RateOfFire: 0.2
+  m_RateOfFire: 0.6
   m_EnergyUsage: 0
   m_AmmoUsage: 0
   m_DebuffTime: 0
