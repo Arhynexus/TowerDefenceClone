@@ -55,6 +55,7 @@ namespace TowerDefenceClone
             DisableAll<Projectile>();
             DisableAll<Tower>();
             DisableAll<NextWaveGUI>();
+            DisableAll<AbilitiesController>();
         }
     }
 }

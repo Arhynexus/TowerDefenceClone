@@ -7,8 +7,6 @@ using UnityEngine.UI;
 namespace TowerDefenceClone
 {
 
-
-
     public class TowerBuyControl : MonoBehaviour
     {
 
@@ -36,8 +34,6 @@ namespace TowerDefenceClone
             m_BuildSite = value;
         }
 
-
-
         private void GoldStatusCheck(int gold)
         {
             if (gold >= m_TowerAsset.GoldCost != m_Button.interactable)
@@ -47,12 +43,10 @@ namespace TowerDefenceClone
             }
         }
 
-
         public void Buy()
         {
             TDPlayer.Instance.TryBuild(m_TowerAsset, m_BuildSite);
             BuildSite.HideControls();
         }
-
     }
 }
