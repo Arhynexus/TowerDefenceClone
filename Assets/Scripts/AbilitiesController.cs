@@ -7,9 +7,9 @@ namespace TowerDefenceClone
     {
 
         [SerializeField] private UpgradeAsset m_FireAbilityAsset;
-        [SerializeField] private Ability m_FireAbility;
-
         [SerializeField] private UpgradeAsset m_TimeAbilityAsset;
+
+        [SerializeField] private Ability m_FireAbility;
         [SerializeField] private Ability m_TimeAbility;
 
         [SerializeField] private int m_MaxMana;
@@ -34,7 +34,7 @@ namespace TowerDefenceClone
             if (CurrentMana < 0) CurrentMana = 0;
             if (CurrentMana > m_MaxMana) CurrentMana = m_MaxMana;
             RemainingMana = (float)CurrentMana / (float)m_MaxMana;
-            int supermanacharge = (int)(amount / 10);
+            int supermanacharge = (int)(amount / 5);
             SuperManaChange(-supermanacharge);
             ManaChanged();
             CheckCost();
@@ -64,6 +64,8 @@ namespace TowerDefenceClone
             ShowAbilities();
             ManaChange += OnManaChange;
             SuperManaChange += OnSuperManaChange;
+            m_FireAbility.SetAbilityStats(m_FireAbilityAsset);
+            m_TimeAbility.SetAbilityStats(m_TimeAbilityAsset);
             CheckCost += m_FireAbility.OnCheckCost;
             CheckCost += m_TimeAbility.OnCheckCost;
             m_ManaRegenerationTimer.Start(2);
@@ -81,7 +83,10 @@ namespace TowerDefenceClone
 
         private void ManaRegeneration()
         {
-            OnManaChange(-5);
+            CurrentMana += 5;
+            RemainingMana = (float)CurrentMana / (float)m_MaxMana;
+            if (CurrentMana > m_MaxMana) { CurrentMana = m_MaxMana; }
+            ManaChanged();
         }
 
         public void ShowAbilities()
@@ -104,5 +109,12 @@ namespace TowerDefenceClone
             }
         }
 
+        private void OnDestroy()
+        {
+            CheckCost -= m_FireAbility.OnCheckCost;
+            CheckCost -= m_TimeAbility.OnCheckCost;
+            ManaChange -= OnManaChange;
+            SuperManaChange -= OnSuperManaChange;
+        }
     }
 }

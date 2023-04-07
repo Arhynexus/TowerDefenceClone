@@ -12,7 +12,12 @@ namespace TowerDefenceClone
         [SerializeField] private BuyUpgrade[] m_Sales;
 
 
-        private void Start()
+        private void Awake()
+        {
+            Upgrades.SaveIsloaded += UpdateUpgradesInfo;
+        }
+
+        private void UpdateUpgradesInfo()
         {
             foreach (var slot in m_Sales)
             {
@@ -20,6 +25,11 @@ namespace TowerDefenceClone
                 slot.transform.Find("UpgradeButton").GetComponent<Button>().onClick.AddListener(UpdateMoney);
             }
             UpdateMoney();
+        }
+
+        private void OnDestroy()
+        {
+            Upgrades.SaveIsloaded -= UpdateUpgradesInfo;
         }
 
         private void UpdateMoney()

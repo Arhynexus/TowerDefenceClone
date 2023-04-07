@@ -20,6 +20,10 @@ namespace TowerDefenceClone
             m_Blocker.enabled = true;
             m_OnClickAction = mouseAction;
         }
+        private void OnDestroy()
+        {
+            m_OnClickAction = null;
+        }
 
         public void OnPointerClick(PointerEventData eventData)
         {

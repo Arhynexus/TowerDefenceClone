@@ -86,9 +86,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 95787407418487810}
-  - component: {fileID: 2720714769346808039}
+  - component: {fileID: 4223163510492207551}
   m_Layer: 5
-  m_Name: TimeAbility
+  m_Name: UltimateAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,10 +113,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 60}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 74.5355, y: 74.5355}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2720714769346808039
+--- !u!114 &4223163510492207551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,16 +125,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 95787407418487811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a874113ee36dd44eb10bb3b6500452f, type: 3}
+  m_Script: {fileID: 11500000, guid: 950ea7ba6eb5b6c4096126890ab11772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Cost: 70
-  m_ResourceType: 0
-  m_CoolDown: 15
-  m_TimeButton: {fileID: 95787408122005459}
-  m_Duration: 5
-  m_Strength: 50
-  m_TimeAbilityTextCost: {fileID: 95787408590545118}
+  m_Cost: 100
+  m_ResourceType: 1
+  m_CoolDown: 60
+  m_Damage: 2147483647
+  m_UltimateAbilityButton: {fileID: 95787408122005459}
+  m_UltimateAbilityCost: {fileID: 95787408590545118}
 --- !u!1 &95787408122005457
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7f287c9a72c33a4da91d7fd0305a58d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aae4463342d1b6b408c300ada78cbde7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -256,7 +255,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2720714769346808039}
+      - m_Target: {fileID: 4223163510492207551}
         m_TargetAssemblyTypeName: TowerDefenceClone.Ability, Assembly-CSharp
         m_MethodName: UseAbility
         m_Mode: 1

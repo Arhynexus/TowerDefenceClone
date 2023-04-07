@@ -310,3 +310,5 @@ MonoBehaviour:
   BuildableTowers:
   - {fileID: 11400000, guid: 7746cf0ff60996f4d820cf91068991e9, type: 2}
   - {fileID: 11400000, guid: 4f2d5cc830b722d4fa619b8ebe1c79a5, type: 2}
+  - {fileID: 11400000, guid: 5cfb6807ad223344b8004762395872df, type: 2}
+  - {fileID: 11400000, guid: 5d34f75eb69f6474ea72bf47d2d3f88f, type: 2}

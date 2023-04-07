@@ -18,5 +18,5 @@ MonoBehaviour:
   TurretProperties: {fileID: 11400000, guid: 81368ba225aec9c4fb3748eeaa9f38ca, type: 2}
   Color: {r: 1, g: 0, b: 0.87459564, a: 1}
   m_RequiredUpgrade: {fileID: 11400000, guid: 59fbbd35bd19d274191c20574d33e26c, type: 2}
-  m_RequiredUpgradeLevel: 2
+  m_RequiredUpgradeLevel: 3
   UpgradesTo: []

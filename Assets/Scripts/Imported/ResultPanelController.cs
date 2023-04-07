@@ -101,16 +101,12 @@ namespace CosmoSimClone
         {
             PlayerPrefs.SetInt("TotalKills", TotalKillsForSave);
             PlayerPrefs.SetInt("TotalScore", TotalScoreForSave);
-            Debug.Log("Total Kills Saved" + TotalKillsForSave);
-            Debug.Log("Total Score Saved" + TotalScoreForSave);
         }
 
         private void LoadTotalStatistics()
         {
             TotalScoreForSave = PlayerPrefs.GetInt("TotalScore");
             TotalKillsForSave = PlayerPrefs.GetInt("TotalKills");
-            Debug.Log("Total Kills Loaded" + TotalKillsForSave);
-            Debug.Log("Total Score Loaded" + TotalScoreForSave);
         }
 
         private void OnDestroy()

@@ -52,8 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DoNotDestroyOnLoad: 0
   m_FireAbilityAsset: {fileID: 0}
-  m_FireAbility: {fileID: 0}
   m_TimeAbilityAsset: {fileID: 0}
+  m_FireAbility: {fileID: 0}
   m_TimeAbility: {fileID: 0}
   m_MaxMana: 0
   m_MaxSuperMana: 0
