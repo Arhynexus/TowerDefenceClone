@@ -604,6 +604,17 @@ Transform:
   m_Father: {fileID: 194053278}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &559443385 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4223163510492207551, guid: 85ed15b276107c14ba6cd76b1902c2a2, type: 3}
+  m_PrefabInstance: {fileID: 354931009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950ea7ba6eb5b6c4096126890ab11772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &562421511
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1997716831053338788, guid: f551c512a1128264888af700bfe27e7c, type: 3}
       propertyPath: m_Damage
-      value: 50
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1997716831053338788, guid: f551c512a1128264888af700bfe27e7c, type: 3}
       propertyPath: m_Radius
@@ -2892,6 +2903,10 @@ PrefabInstance:
       propertyPath: m_TargetingCircle
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1557622740, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
+      propertyPath: m_UltimateAbility
+      value: 
+      objectReference: {fileID: 559443385}
     - target: {fileID: 1557622740, guid: 062124b9abc06a34c8cf41127061f47d, type: 3}
       propertyPath: m_FireAbilityAsset
       value: 

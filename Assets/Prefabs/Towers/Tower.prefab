@@ -89,9 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ddc433d7e405646ac8bdd68a1998b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BuildableTowers:
-  - {fileID: 11400000, guid: 7746cf0ff60996f4d820cf91068991e9, type: 2}
-  - {fileID: 11400000, guid: 4f2d5cc830b722d4fa619b8ebe1c79a5, type: 2}
+  BuildableTowers: []
 --- !u!1 &1186422329209060424
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,8 +121,8 @@ Transform:
   m_Children:
   - {fileID: 1186422330408033694}
   - {fileID: 1186422330639655434}
-  - {fileID: 1201108301570003091}
   - {fileID: 8233234757341154990}
+  - {fileID: 8350890604671177431}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -141,6 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Radius: 2.2
+  m_VisualEffects: {fileID: 2475788364902230379}
+  m_IsPlayed: 0
 --- !u!1 &1186422330408033681
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ RectTransform:
   m_Children:
   - {fileID: 1239127469339850959}
   m_Father: {fileID: 1186422329209060470}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1001 &3613549463296734478
+--- !u!1001 &5866654807960467274
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -382,7 +382,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2490167017974310301, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2490167017974310301, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
       propertyPath: m_LocalPosition.x
@@ -424,18 +424,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2681644463619394281, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8300502524890766881, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
       propertyPath: m_Name
-      value: VisualEffect
+      value: FreezeVisualEffect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
---- !u!4 &1201108301570003091 stripped
+--- !u!1 &2475788364902230379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8300502524890766881, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
+  m_PrefabInstance: {fileID: 5866654807960467274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8350890604671177431 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2490167017974310301, guid: b289cb4e5e942cb48b1871a6b8c7c956, type: 3}
-  m_PrefabInstance: {fileID: 3613549463296734478}
+  m_PrefabInstance: {fileID: 5866654807960467274}
   m_PrefabAsset: {fileID: 0}

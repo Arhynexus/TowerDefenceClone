@@ -19,5 +19,7 @@ namespace TowerDefenceClone
         public bool IsAvailable() => !m_RequiredUpgrade || 
             m_RequiredUpgradeLevel <= Upgrades.GetUpgradeLevel(m_RequiredUpgrade);
         public TowerAsset[] UpgradesTo;
-        }
+
+        public ParticleSystem VisualEffect;
+    }
 }

@@ -10,6 +10,7 @@ namespace TowerDefenceClone
         [SerializeField] private int m_Money;
         [SerializeField] private Text m_MoneyText;
         [SerializeField] private BuyUpgrade[] m_Sales;
+        [SerializeField] private GameObject[] m_UpgradePanels;
 
 
         private void Awake()
@@ -25,6 +26,10 @@ namespace TowerDefenceClone
                 slot.transform.Find("UpgradeButton").GetComponent<Button>().onClick.AddListener(UpdateMoney);
             }
             UpdateMoney();
+            foreach(var slot in m_UpgradePanels)
+            {
+                slot.SetActive(false);
+            }
         }
 
         private void OnDestroy()

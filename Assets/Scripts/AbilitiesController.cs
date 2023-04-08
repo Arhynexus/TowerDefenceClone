@@ -11,6 +11,7 @@ namespace TowerDefenceClone
 
         [SerializeField] private Ability m_FireAbility;
         [SerializeField] private Ability m_TimeAbility;
+        [SerializeField] private Ability m_UltimateAbility;
 
         [SerializeField] private int m_MaxMana;
         public int CurrentMana { get; private set; }
@@ -106,6 +107,14 @@ namespace TowerDefenceClone
             else
             {
                 m_TimeAbility.gameObject.SetActive(false);
+            }
+            if (Upgrades.GetUpgradeLevel(m_TimeAbilityAsset) > 0 || Upgrades.GetUpgradeLevel(m_FireAbilityAsset) > 0)
+            {
+                m_UltimateAbility.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_UltimateAbility.gameObject.SetActive(false);
             }
         }
 

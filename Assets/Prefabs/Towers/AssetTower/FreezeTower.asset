@@ -20,3 +20,4 @@ MonoBehaviour:
   m_RequiredUpgrade: {fileID: 11400000, guid: e5aef8ab5505d50468435f3328cc5d38, type: 2}
   m_RequiredUpgradeLevel: 1
   UpgradesTo: []
+  VisualEffect: {fileID: 2681644463619394281, guid: 04231ce91f2ba1e4ba884de6e9233976, type: 3}
