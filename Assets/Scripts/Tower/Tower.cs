@@ -1,5 +1,6 @@
 using CosmoSimClone;
 using System;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,6 +21,9 @@ namespace TowerDefenceClone
         {
             m_Turrets = GetComponentsInChildren<Turret>();
             m_VisualEffects.SetActive(false);
+            var particles = Instantiate(m_Particles, m_VisualEffects.transform.position, quaternion.identity);
+            particles.transform.SetParent(m_VisualEffects.transform, false);
+            particles.transform.position = m_VisualEffects.transform.position;
         }
 
         private void PlayEffects()
@@ -118,7 +122,7 @@ namespace TowerDefenceClone
             sprite.sprite = towerAsset.Sprite;
             sprite.color = towerAsset.Color;
             m_Turrets = GetComponentsInChildren<Turret>();
-            m_Particles = GetComponentInChildren<ParticleSystem>();
+            m_Particles = transform.root.GetComponentInChildren<ParticleSystem>();
             m_Particles = towerAsset.VisualEffect;
             foreach (var turret in m_Turrets)
             {
