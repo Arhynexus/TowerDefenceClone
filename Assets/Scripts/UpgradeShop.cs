@@ -18,6 +18,11 @@ namespace TowerDefenceClone
             Upgrades.SaveIsloaded += UpdateUpgradesInfo;
         }
 
+        private void Start()
+        {
+            UpdateUpgradesInfo();
+        }
+
         private void UpdateUpgradesInfo()
         {
             foreach (var slot in m_Sales)

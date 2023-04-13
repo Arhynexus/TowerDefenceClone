@@ -1,14 +1,9 @@
 using CosmoSimClone;
-using System;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
 namespace TowerDefenceClone
 {
-
-
-
     public class Tower : MonoBehaviour
     {
         [SerializeField] private float m_Radius;
@@ -21,14 +16,17 @@ namespace TowerDefenceClone
         {
             m_Turrets = GetComponentsInChildren<Turret>();
             m_VisualEffects.SetActive(false);
-            var particles = Instantiate(m_Particles, m_VisualEffects.transform.position, quaternion.identity);
-            particles.transform.SetParent(m_VisualEffects.transform, false);
-            particles.transform.position = m_VisualEffects.transform.position;
+            if (m_Particles != null)
+            {
+                var particles = Instantiate(m_Particles, m_VisualEffects.transform.position, quaternion.identity);
+                particles.transform.SetParent(m_VisualEffects.transform, false);
+                particles.transform.position = m_VisualEffects.transform.position;
+            }
         }
 
         private void PlayEffects()
         {
-            if(m_IsPlayed == true)
+            if (m_IsPlayed == true)
             {
                 m_VisualEffects.SetActive(true);
             }

@@ -37,6 +37,24 @@ namespace TowerDefenceClone
             TDPlayer.OnLifepdate += LifeScoreChange;
         }
 
+        private void OnDestroy()
+        {
+            Player.Instance.OnPlayerDead -= () =>
+            {
+                StopLevelActivity();
+                ResultPanelController.Instance.ShowResults(null, false);
+            };
+            m_EventLevelCompleted.RemoveListener(() =>
+            {
+                StopLevelActivity();
+                if (m_ReferenceTime < Time.time)
+                {
+                    LevelScore -= 1;
+                }
+                MapCompletion.SaveEpisodeResult(LevelScore);
+            });
+        }
+
         public void StopLevelActivity()
         {
             foreach(var enemy in FindObjectsOfType<Enemy>())

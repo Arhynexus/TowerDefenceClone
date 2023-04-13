@@ -24,20 +24,38 @@ namespace TowerDefenceClone
             switch(Source)
             {
                 case UpdateSource.Gold: TDPlayer.OnGoldUpdateSubscribe(UpdateText);
+                    print($"Subscribed{Source}");
                     break;
 
                 case UpdateSource.Life: TDPlayer.OnLifeUpdateSubscribe(UpdateText);
+                    print($"Subscribed{Source}");
                     break;
 
-                case UpdateSource.Shield: TDPlayer.OnShieldSubscribe(UpdateText);
+                case UpdateSource.Shield: TDPlayer.OnShieldUpdateSubscribe(UpdateText);
+                    print($"Subscribed{Source}");
                     break;
             }
         }
 
         private void OnDestroy()
         {
-            TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
-            TDPlayer.OnLifeShieldUnSubscribe(UpdateText);
+            switch (Source)
+            {
+                case UpdateSource.Gold:
+                    TDPlayer.OnGoldUpdateUnsubscribe(UpdateText);
+                    print($"Unsubscribed{Source}");
+                    break;
+
+                case UpdateSource.Life:
+                    TDPlayer.OnLifeUpdateUnsubscribe(UpdateText);
+                    print($"Unsubscribed{Source}");
+                    break;
+
+                case UpdateSource.Shield:
+                    TDPlayer.OnShieldUpdateUnsubscribe(UpdateText);
+                    print($"Unsubscribed{Source}");
+                    break;
+            }
         }
 
         public void UpdateText(int money)

@@ -110,12 +110,12 @@ namespace TowerDefenceClone
 
         [SerializeField] private int m_Shield;
         public static event Action<int> OnShieldpdate;
-        public static void OnShieldSubscribe(Action<int> act)
+        public static void OnShieldUpdateSubscribe(Action<int> act)
         {
             OnShieldpdate += act;
             act(Instance.m_Shield);
         }
-        public static void OnLifeShieldUnSubscribe(Action<int> act)
+        public static void OnShieldUpdateUnsubscribe(Action<int> act)
         {
             OnShieldpdate -= act;
         }
